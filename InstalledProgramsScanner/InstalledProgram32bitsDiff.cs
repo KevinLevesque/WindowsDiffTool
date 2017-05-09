@@ -46,7 +46,7 @@ namespace InstalledPrograms32bitsScanner
 
             foreach(InstalledProgram32bits afterItem in afterList)
             {
-                InstalledProgram32bits beforeItem = beforeList.First(x => x.UninstallKey == afterItem.UninstallKey);
+                InstalledProgram32bits beforeItem = beforeList.FirstOrDefault(x => x.UninstallKey == afterItem.UninstallKey);
 
                 if(beforeItem == null)
                 {
