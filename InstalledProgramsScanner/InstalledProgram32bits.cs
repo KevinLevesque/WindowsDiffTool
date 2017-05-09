@@ -7,15 +7,10 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 using WindowsSystemDiffToolsCore;
 
-namespace WindowsSystemDiffToolsScanner
+namespace InstalledPrograms32bitsScanner
 {
- 
-    public class Component : ComponentCore
+    public class InstalledProgram32bits : Component
     {
-        
-        string ComponentType = "InstalledProgram";
-
-
         public string DisplayName { get; set; }
         public string DisplayVersion { get; set; }
         public int Bitness { get; set; }
@@ -24,7 +19,7 @@ namespace WindowsSystemDiffToolsScanner
 
 
 
-        public Component(RegistryKey key, int bitness)
+        public InstalledProgram32bits(RegistryKey key, int bitness)
         {
             this.DisplayName = key.GetValue("DisplayName").ToString();
             this.UninstallKey = key.Name;
@@ -34,9 +29,14 @@ namespace WindowsSystemDiffToolsScanner
                 this.DisplayVersion = key.GetValue("DisplayVersion").ToString();
         }
 
-        public Component()
+        public InstalledProgram32bits()
         {
 
+        }
+
+        public override string ToString()
+        {
+            return $"{this.DisplayName} [Version {this.DisplayVersion}]";
         }
 
     }
