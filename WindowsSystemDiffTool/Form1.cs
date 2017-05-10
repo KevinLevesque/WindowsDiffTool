@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Remoting;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WindowsSystemDiffToolsCore;
@@ -31,10 +32,14 @@ namespace WindowsSystemDiffTool
 
             diffToolScanner = new DiffToolScanner(this);
 
+            richTextBox1.ReadOnly = true;
+            progressBar1.Maximum = 100;
+
 
             foreach(Library lib in librariesLoader.GetLibraries())
             {
                 chkListScans.Items.Add(lib);
+                diffToolScanner.AllComponentsTypes.Add(lib.Scanner.TypeOfComponent());
             }
         }
         
@@ -42,13 +47,22 @@ namespace WindowsSystemDiffTool
 
         private void btnStartScan_Click(object sender, EventArgs e)
         {
+            if (richTextBox1.Text.Length > 0)
+            {
+                richTextBox1.Text = string.Empty;
+                progressBar1.Value = 0;
+            }
             
+
+            
+
+            List<Library> librairies = new List<Library>();   
             for(int x = 0; x < chkListScans.CheckedItems.Count; x++)
             {
-                diffToolScanner.addScanner(((Library)chkListScans.CheckedItems[x]).Scanner);
+                librairies.Add((Library)chkListScans.CheckedItems[x]);
             }
 
-            diffToolScanner.StartScan();
+            diffToolScanner.StartScan(librairies);
         }
 
         public void sendStringToUI(string message)
@@ -57,6 +71,9 @@ namespace WindowsSystemDiffTool
                 richTextBox1.Text += Environment.NewLine;
 
             richTextBox1.Text += message;
+
+            richTextBox1.SelectionStart = richTextBox1.Text.Length;
+            richTextBox1.ScrollToCaret();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -99,26 +116,50 @@ namespace WindowsSystemDiffTool
 
             foreach(ComponentGroup beforeGroup in beforeComponentGroup)
             {
-                ComponentGroup afterGroup = afterComponentGroup.First(x => x.ComponentName == beforeGroup.ComponentName);
+                ComponentGroup afterGroup = afterComponentGroup.FirstOrDefault(x => x.ComponentName == beforeGroup.ComponentName);
 
-                //Group exists in both lists
-                if (afterGroup != null)
+                try
                 {
-                    ObjectHandle obj = Activator.CreateInstance(beforeGroup.ComponentNameSpace, beforeGroup.ComponentNameSpace + "." + beforeGroup.ComponentName + "Diff");
-                    DiffCore diff = (DiffCore)obj.Unwrap();
+                    //Group exists in both lists
+                    if (afterGroup != null)
+                    {
+                        ObjectHandle obj = Activator.CreateInstance(beforeGroup.ComponentNameSpace, beforeGroup.ComponentNameSpace + "." + beforeGroup.ComponentName + "Diff");
+                        DiffCore diff = (DiffCore)obj.Unwrap();
 
-                    diff.beforeData = beforeGroup.Components;
-                    diff.afterData = afterGroup.Components;
+                        diff.beforeData = beforeGroup.Components;
+                        diff.afterData = afterGroup.Components;
 
-                    List<DiffResult> diffResults = diff.Start();
+                        List<DiffResult> diffResults = diff.Start();
 
-                    diffWriters.Add(new DiffResultWriter(diffResults, beforeGroup.ComponentName));
+                        diffWriters.Add(new DiffResultWriter(diffResults, beforeGroup.ComponentName));
+                    }
+                    else
+                        diffWriters.Add(new DiffResultWriter(null, beforeGroup.ComponentName));
                 }
+                catch
+                {
+                    diffWriters.Add(new DiffResultWriter(null, beforeGroup.ComponentName));
+                }
+
+            }
+
+            foreach (ComponentGroup afterGroup in afterComponentGroup)
+            {
+                ComponentGroup beforeGroup = beforeComponentGroup.FirstOrDefault(x => x.ComponentName == afterGroup.ComponentName);
+
+                //If beforegroup is null, component was only scanned in the "after" scan. 
+                if (beforeGroup == null)
+                {
+                    diffWriters.Add(new DiffResultWriter(null, afterGroup.ComponentName));
+                }
+                
             }
 
             Directory.CreateDirectory(@"C:\Temp\WindowsDiffTool\Compare");
 
-            using (StreamWriter sr = new StreamWriter(@"C:\Temp\WindowsDiffTool\Compare\compare.txt"))
+            string filePath = @"C:\Temp\WindowsDiffTool\Compare\" + DateTime.Now.ToString("yyyy-MM-dd_H_mm_ss") + ".txt";
+
+            using (StreamWriter sr = new StreamWriter(filePath))
             {
                 foreach (DiffResultWriter reswriter in diffWriters)
                 {
@@ -126,6 +167,28 @@ namespace WindowsSystemDiffTool
                 }
             }
 
+            System.Diagnostics.Process.Start(filePath);
+
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chkToggle_Click(object sender, EventArgs e)
+        {
+            
+
+            for(int x = 0; x<chkListScans.Items.Count; x++)
+            {
+                chkListScans.SetItemChecked(x, chkToggle.Checked);
+            }
+        }
+
+        public void UpdatePercentComplete(int percentComplete)
+        {
+            progressBar1.Value = percentComplete;
         }
     }
 }

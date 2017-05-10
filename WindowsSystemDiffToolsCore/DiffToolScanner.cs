@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -15,43 +16,49 @@ namespace WindowsSystemDiffToolsCore
         public UIListener Listener;
 
         [XmlIgnore]
-        public List<ComponentScanner> Scanners { get; set; }
+        public List<Type> AllComponentsTypes { get; set; }
 
         public List<ComponentGroup> ScanResults;
 
 
         public DiffToolScanner(UIListener listener)
         {
-            Scanners = new List<ComponentScanner>();
             ScanResults = new List<ComponentGroup>();
             Listener = listener;
+            AllComponentsTypes = new List<Type>();
         }
 
 
-        public void addScanner(ComponentScanner scanner)
-        {
-            if(!Scanners.Contains(scanner))
-                Scanners.Add(scanner);
-        }
 
-
-        public void StartScan()
+        public void StartScan(List<Library> LibrariesToScan)
         {
-            foreach (ComponentScanner scanner in Scanners)
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            int count = 0;
+            Listener.UpdatePercentComplete(count);
+
+            foreach (Library lib in LibrariesToScan)
             {
-                Listener.sendStringToUI("Lancement du scan de la librairie " + scanner.ToString());
+                Listener.sendStringToUI("Launching scan for for library " + lib.Scanner.ToString());
                 Listener.sendStringToUI("***************************************");
                 ScanResults.Add(new ComponentGroup()
                 {
-                    ComponentName = scanner.ComponentName,
-                    ComponentNameSpace = scanner.ComponentNamespace,
-                    Components = scanner.Scan()
+                    ComponentName = lib.Scanner.ComponentName,
+                    ComponentNameSpace = lib.Scanner.ComponentNamespace,
+                    Components = lib.Scanner.Scan()
                 });
                 Listener.sendStringToUI("***************************************");
+                Listener.sendStringToUI(Environment.NewLine);
+
+                count++;
+
+                Listener.UpdatePercentComplete((count / LibrariesToScan.Count) * 100);
             }
 
             WriteToFile();
             ScanResults.Clear();
+            
+            Listener.sendStringToUI("Scan completed in " + sw.Elapsed.ToString("c")); 
         }
 
         private void WriteToFile()
@@ -60,21 +67,15 @@ namespace WindowsSystemDiffToolsCore
 
             try
             {
-                List<Type> types = new List<Type>();
-                foreach (ComponentScanner scanner in Scanners)
-                {
-                    types.Add(scanner.TypeOfComponent());
-                }
-
                 XmlDocument xmlDocument = new XmlDocument();
-                XmlSerializer serializer = new XmlSerializer(this.ScanResults.GetType(), types.ToArray<Type>());
+                XmlSerializer serializer = new XmlSerializer(this.ScanResults.GetType(), AllComponentsTypes.ToArray());
                 using (MemoryStream stream = new MemoryStream())
                 {
                     serializer.Serialize(stream, this.ScanResults);
                     stream.Position = 0;
                     xmlDocument.Load(stream);
 
-                    xmlDocument.Save(@"C:\Temp\WindowsDiffTool\" + DateTime.Now.ToString("yyyyMMddHmmss") + ".compare");
+                    xmlDocument.Save(@"C:\Temp\WindowsDiffTool\" + DateTime.Now.ToString("yyyy-MM-dd_H_mm_ss") + ".xml");
 
 
                     stream.Close();
@@ -89,14 +90,9 @@ namespace WindowsSystemDiffToolsCore
 
         public List<ComponentGroup> ReadFromFile(string filepath)
         {
-            List<Type> types = new List<Type>();
-            foreach (ComponentScanner scanner in Scanners)
-            {
-                types.Add(scanner.TypeOfComponent());
-            }
 
             XmlDocument xmlDocument = new XmlDocument();
-            XmlSerializer serializer = new XmlSerializer(this.ScanResults.GetType(), types.ToArray<Type>());
+            XmlSerializer serializer = new XmlSerializer(this.ScanResults.GetType(), AllComponentsTypes.ToArray());
             using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(File.ReadAllText(filepath))))
             {
                 try

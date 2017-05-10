@@ -81,6 +81,30 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\FreeDiskSpace\FreeDiskSpace.csproj">
+      <Project>{07cc1b48-eea2-430f-9160-1dcd6d7b1865}</Project>
+      <Name>FreeDiskSpace</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InstalledPrograms64bitsScanner\InstalledPrograms64bitsScanner.csproj">
+      <Project>{abc65a7a-78da-44ea-a079-cf4c212845af}</Project>
+      <Name>InstalledPrograms64bitsScanner</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InstalledProgramsScanner\InstalledPrograms32bitsScanner.csproj">
+      <Project>{fef52358-54c6-48a1-b894-a07d375640e0}</Project>
+      <Name>InstalledPrograms32bitsScanner</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Service\Service.csproj">
+      <Project>{d8bd7d79-05a3-49d2-98a2-e2386620aba9}</Project>
+      <Name>Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SystemEnvironmentVariable\SystemEnvironmentVariable.csproj">
+      <Project>{4dc5b41d-4d6f-4ecd-b19d-2b1073a6e0fa}</Project>
+      <Name>SystemEnvironmentVariable</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UserVariables\UserVariables.csproj">
+      <Project>{d48547a2-58f7-4b54-9768-f44772b2e92a}</Project>
+      <Name>UserVariables</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WindowsSystemDiffToolsCore\WindowsSystemDiffToolsCore.csproj">
       <Project>{87e4859a-d7b0-4a84-a2d3-1d54f8b74568}</Project>
       <Name>WindowsSystemDiffToolsCore</Name>

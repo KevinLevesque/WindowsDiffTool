@@ -58,7 +58,6 @@ namespace WindowsSystemDiffToolsCore
                     {
                         libraries.Add(new Library(scanner, diff));
                     }
-
                 }
             }
         }

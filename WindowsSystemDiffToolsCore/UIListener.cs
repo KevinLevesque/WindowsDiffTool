@@ -9,5 +9,7 @@ namespace WindowsSystemDiffToolsCore
     public interface UIListener
     {
         void sendStringToUI(string message);
+
+        void UpdatePercentComplete(int percentComplete);
     }
 }

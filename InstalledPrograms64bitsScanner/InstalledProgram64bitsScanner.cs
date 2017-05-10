@@ -12,7 +12,7 @@ namespace InstalledPrograms64bitsScanner
     {
         public InstalledProgram64bitsScanner(){ }
 
-        protected override string Name { get { return "Programmes et fonctionnalités (64 bits)"; } }
+        protected override string Name { get { return "Programs and features (64 bits)"; } }
 
         public override string ComponentName { get { return "InstalledProgram64bits"; } }
         public override string ComponentNamespace { get { return "InstalledPrograms64bitsScanner"; } }
@@ -27,7 +27,7 @@ namespace InstalledPrograms64bitsScanner
             RegistryKey key = hklm.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Uninstall");
             string[] subKeyNames = key.GetSubKeyNames();
 
-            sendMessageToUI("Scan des clés de registre 64 bits...");
+            sendMessageToUI("Scanning 64 bits programs and features from the registry");
             foreach (string subKeyName in subKeyNames)
             {
                 RegistryKey installedProgramKey = key.OpenSubKey(subKeyName);
@@ -37,7 +37,7 @@ namespace InstalledPrograms64bitsScanner
                 if (keyValueNames.Contains("DisplayName"))
                     installedPrograms.Add(new InstalledProgram64bits(installedProgramKey, 64));
             }
-            sendMessageToUI($"Scan des clés 64 bits terminé, {key.SubKeyCount} clés scannées.");
+            sendMessageToUI($"Scan completed, {key.SubKeyCount} keys scanned.");
 
 
             return installedPrograms;

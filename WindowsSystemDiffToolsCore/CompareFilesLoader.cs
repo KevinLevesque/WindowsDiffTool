@@ -21,7 +21,7 @@ namespace WindowsSystemDiffToolsCore
             {
                 FileInfo file = new FileInfo(filePath);
 
-                if(file.Extension == ".compare")
+                if(file.Extension == ".xml")
                 files.Add(new CompareFile(filePath));
             }
 
