@@ -31,7 +31,7 @@ namespace InstalledPrograms64bitsScanner
                 if (afterItem == null)
                 {
                     //Product has been uninstalled, no longer exists in the registry
-                    results.Add(DiffResult.Removed(beforeItem.ToString()));
+                    results.Add(DiffResult.Removed(beforeItem));
                     continue;
                 }
 
@@ -39,7 +39,7 @@ namespace InstalledPrograms64bitsScanner
                 if((beforeItem.DisplayName != afterItem.DisplayName) || (beforeItem.DisplayVersion != afterItem.DisplayVersion))
                 {
                     //DisplayName or DisplayVersion modified
-                    results.Add(DiffResult.Modified(beforeItem.ToString(), afterItem.ToString()));
+                    results.Add(DiffResult.Modified(beforeItem, afterItem));
                     continue;
                 }   
             }
@@ -51,7 +51,7 @@ namespace InstalledPrograms64bitsScanner
                 if(beforeItem == null)
                 {
                     //Product didn't exist before, it has been installed
-                    results.Add(DiffResult.Added(afterItem.ToString()));
+                    results.Add(DiffResult.Added(afterItem));
                 }
 
 

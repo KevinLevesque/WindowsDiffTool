@@ -26,9 +26,19 @@ namespace FreeDiskSpace
         }
 
 
-        public override string ToString()
+
+
+        public override string getDisplayName()
         {
-            return $"{this.Name} [AvailaibleSpace '{this.AvailaibleSpace} kB']";
+            return this.Name;
+        }
+
+        public override Dictionary<string, string> getItems()
+        {
+            return new Dictionary<string, string>()
+            {
+                { "AvailaibleSpace", $"{AvailaibleSpace.ToString()} kB" }
+            };
         }
 
 

@@ -10,22 +10,20 @@ using System.Xml.Serialization;
 
 namespace WindowsSystemDiffToolsCore
 {
-    public class DiffToolScanner
+    public class DiffToolController
     {
-        [XmlIgnore]
         public UIListener Listener;
+        public List<Type> ComponentsTypes { get; set; }
 
-        [XmlIgnore]
-        public List<Type> AllComponentsTypes { get; set; }
-
-        public List<ComponentGroup> ScanResults;
+        private List<ComponentGroup> ScanResults;
+        private List<DiffResultsGroup> CurrentCompareFileSelectedResult;
 
 
-        public DiffToolScanner(UIListener listener)
+        public DiffToolController(UIListener listener)
         {
             ScanResults = new List<ComponentGroup>();
             Listener = listener;
-            AllComponentsTypes = new List<Type>();
+            ComponentsTypes = new List<Type>();
         }
 
 
@@ -63,19 +61,19 @@ namespace WindowsSystemDiffToolsCore
 
         private void WriteToFile()
         {
-            Directory.CreateDirectory(@"C:\Temp\WindowsDiffTool");
+            Directory.CreateDirectory(@"C:\Temp\WindowsDiffTool\Snapshots");
 
             try
             {
                 XmlDocument xmlDocument = new XmlDocument();
-                XmlSerializer serializer = new XmlSerializer(this.ScanResults.GetType(), AllComponentsTypes.ToArray());
+                XmlSerializer serializer = new XmlSerializer(this.ScanResults.GetType(), ComponentsTypes.ToArray());
                 using (MemoryStream stream = new MemoryStream())
                 {
                     serializer.Serialize(stream, this.ScanResults);
                     stream.Position = 0;
                     xmlDocument.Load(stream);
 
-                    xmlDocument.Save(@"C:\Temp\WindowsDiffTool\" + DateTime.Now.ToString("yyyy-MM-dd_H_mm_ss") + ".xml");
+                    xmlDocument.Save(@"C:\Temp\WindowsDiffTool\Snapshots\" + DateTime.Now.ToString("yyyy-MM-dd_H_mm_ss") + ".xml");
 
 
                     stream.Close();
@@ -90,9 +88,8 @@ namespace WindowsSystemDiffToolsCore
 
         public List<ComponentGroup> ReadFromFile(string filepath)
         {
-
             XmlDocument xmlDocument = new XmlDocument();
-            XmlSerializer serializer = new XmlSerializer(this.ScanResults.GetType(), AllComponentsTypes.ToArray());
+            XmlSerializer serializer = new XmlSerializer(this.ScanResults.GetType(), ComponentsTypes.ToArray());
             using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(File.ReadAllText(filepath))))
             {
                 try
@@ -105,15 +102,38 @@ namespace WindowsSystemDiffToolsCore
                 }
 
             }
-
-            /*
-            foreach(ComponentGroup cg in ScanResults)
-            {
-                return cg.Components;
-            }
-            */
-
-            return null;
         }
+
+
+
+        public CompareFile CreateCompareFileFromSnapshots(SnapshotFile beforeFile, SnapshotFile afterFile)
+        {
+            Directory.CreateDirectory(@"C:\Temp\WindowsDiffTool\Compare");
+
+            List<DiffResultsGroup> diffResultGroups =  DiffComparator.Compare(this.ReadFromFile(beforeFile.Info.FullName), this.ReadFromFile(afterFile.Info.FullName));
+            return DiffResultGroupsSerializer.Save(diffResultGroups, $@"C:\Temp\WindowsDiffTool\Compare\{DateTime.Now.ToString("yyyy-MM-dd_H_mm_ss")}.xml", ComponentsTypes.ToArray());
+        }
+
+
+        public void LoadCompareFile(CompareFile file)
+        {
+            Directory.CreateDirectory(@"C:\Temp\WindowsDiffTool\Compare");
+
+            CurrentCompareFileSelectedResult = DiffResultGroupsSerializer.Load(file, ComponentsTypes.ToArray());
+        }
+
+        public string GetTextFromSelectedCompareFile()
+        {
+            return DiffResultGroupsTextWriter.GetText(this.CurrentCompareFileSelectedResult);
+        }
+
+        public void SaveSelectedCompareFileToExcel(string filePath)
+        {
+            DiffResultGroupsExcelWriter excelwriter = new DiffResultGroupsExcelWriter(filePath);
+            excelwriter.GenerateExcel(CurrentCompareFileSelectedResult);
+            excelwriter.Save();
+        }
+
+
     }
 }

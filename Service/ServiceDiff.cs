@@ -31,7 +31,7 @@ namespace Service
                 if (afterItem == null)
                 {
                     //Service has been deleted
-                    results.Add(DiffResult.Removed(beforeItem.ToString()));
+                    results.Add(DiffResult.Removed(beforeItem));
                     continue;
                 }
 
@@ -39,7 +39,7 @@ namespace Service
                 //Name or status modified
                 if((beforeItem.DisplayName != afterItem.DisplayName) || (beforeItem.Status != afterItem.Status))
                 {                    
-                    results.Add(DiffResult.Modified(beforeItem.ToString(), afterItem.ToString()));
+                    results.Add(DiffResult.Modified(beforeItem, afterItem));
                     continue;
                 }   
             }
@@ -51,7 +51,7 @@ namespace Service
                 //New service
                 if(beforeItem == null)
                 {                    
-                    results.Add(DiffResult.Added(afterItem.ToString()));
+                    results.Add(DiffResult.Added(afterItem));
                 }
 
 

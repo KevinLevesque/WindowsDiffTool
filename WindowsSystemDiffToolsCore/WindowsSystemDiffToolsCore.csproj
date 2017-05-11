@@ -35,7 +35,30 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release 2|AnyCPU'">
+    <OutputPath>bin\Release 2\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Release\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release 2|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Release 2\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ClosedXML, Version=0.87.0.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClosedXML.0.87.1\lib\net40\ClosedXML.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -50,14 +73,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CompareFile.cs" />
+    <Compile Include="DiffResultGroupsExcelWriter.cs" />
+    <Compile Include="SnapshotFile.cs" />
     <Compile Include="CompareFilesLoader.cs" />
-    <Compile Include="DiffResultWriter.cs" />
+    <Compile Include="SnapshotFilesLoader.cs" />
+    <Compile Include="DiffComparator.cs" />
+    <Compile Include="DiffResultGroupsSerializer.cs" />
+    <Compile Include="DiffResultGroupsTextWriter.cs" />
+    <Compile Include="DiffResultsGroup.cs" />
+    <Compile Include="DiffResultTextWriter.cs" />
     <Compile Include="LibrariesLoader.cs" />
     <Compile Include="Component.cs" />
     <Compile Include="ComponentGroup.cs" />
     <Compile Include="DiffCore.cs" />
     <Compile Include="DiffResult.cs" />
-    <Compile Include="DiffToolScanner.cs" />
+    <Compile Include="DiffToolController.cs" />
     <Compile Include="ComponentScanner.cs" />
     <Compile Include="Library.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -72,6 +102,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

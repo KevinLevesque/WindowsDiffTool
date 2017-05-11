@@ -25,8 +25,11 @@ namespace FreeDiskSpace
             List<Component> drives = new List<Component>();
 
             foreach (DriveInfo drive in DriveInfo.GetDrives())
-                drives.Add(new FreeDiskSpace(drive));
-
+            {
+                if(drive.DriveType == DriveType.Fixed && drive.IsReady)
+                    drives.Add(new FreeDiskSpace(drive));
+            }
+                
             Listener.sendStringToUI($"Scanned {drives.Count} drives availaible space");
 
             return drives;

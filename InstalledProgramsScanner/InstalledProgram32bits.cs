@@ -34,10 +34,19 @@ namespace InstalledPrograms32bitsScanner
 
         }
 
-        public override string ToString()
+
+        public override string getDisplayName()
         {
-            return $"{this.DisplayName} [Version {this.DisplayVersion}]";
+            return this.DisplayName;
         }
 
+        public override Dictionary<string, string> getItems()
+        {
+            return new Dictionary<string, string>()
+            {
+                { "Name", DisplayName },
+                { "Version", DisplayVersion }
+            };
+        }
     }
 }

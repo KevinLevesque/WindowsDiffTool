@@ -28,34 +28,59 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tabControl = new System.Windows.Forms.TabControl();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.txtResult = new System.Windows.Forms.RichTextBox();
+            this.lstCompare = new System.Windows.Forms.ListBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.chkListScans = new System.Windows.Forms.CheckedListBox();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.btnStartScan = new System.Windows.Forms.Button();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.btnCompare = new System.Windows.Forms.Button();
-            this.lblAfterCompare = new System.Windows.Forms.Label();
-            this.lblBeforeCompare = new System.Windows.Forms.Label();
-            this.btnCompareAfter = new System.Windows.Forms.Button();
-            this.txtCompareBefore = new System.Windows.Forms.Button();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.chkListScans = new System.Windows.Forms.CheckedListBox();
             this.chkToggle = new System.Windows.Forms.CheckBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.tabControl.SuspendLayout();
+            this.tabControl = new System.Windows.Forms.TabControl();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.lblAfterCompare = new System.Windows.Forms.Label();
+            this.btnCompare = new System.Windows.Forms.Button();
+            this.btnCompareAfter = new System.Windows.Forms.Button();
+            this.lblBeforeCompare = new System.Windows.Forms.Label();
+            this.lstSnapshots = new System.Windows.Forms.ListBox();
+            this.txtCompareBefore = new System.Windows.Forms.Button();
+            this.btnSaveExcel = new System.Windows.Forms.Button();
+            this.tabPage3.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.tabControl.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tabControl
+            // tabPage3
             // 
-            this.tabControl.Controls.Add(this.tabPage1);
-            this.tabControl.Controls.Add(this.tabPage2);
-            this.tabControl.Location = new System.Drawing.Point(13, 13);
-            this.tabControl.Name = "tabControl";
-            this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(672, 602);
-            this.tabControl.TabIndex = 0;
+            this.tabPage3.Controls.Add(this.btnSaveExcel);
+            this.tabPage3.Controls.Add(this.lstCompare);
+            this.tabPage3.Controls.Add(this.txtResult);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(664, 576);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Results";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            this.tabPage3.Enter += new System.EventHandler(this.tabPage3_Enter);
+            // 
+            // txtResult
+            // 
+            this.txtResult.Location = new System.Drawing.Point(3, 3);
+            this.txtResult.Name = "txtResult";
+            this.txtResult.Size = new System.Drawing.Size(477, 428);
+            this.txtResult.TabIndex = 0;
+            this.txtResult.Text = "";
+            // 
+            // lstCompare
+            // 
+            this.lstCompare.FormattingEnabled = true;
+            this.lstCompare.Location = new System.Drawing.Point(486, 3);
+            this.lstCompare.Name = "lstCompare";
+            this.lstCompare.Size = new System.Drawing.Size(175, 550);
+            this.lstCompare.TabIndex = 1;
+            this.lstCompare.SelectedIndexChanged += new System.EventHandler(this.lstCompare_SelectedIndexChanged);
             // 
             // tabPage1
             // 
@@ -73,23 +98,6 @@
             this.tabPage1.UseVisualStyleBackColor = true;
             this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
             // 
-            // chkListScans
-            // 
-            this.chkListScans.CheckOnClick = true;
-            this.chkListScans.FormattingEnabled = true;
-            this.chkListScans.Location = new System.Drawing.Point(12, 26);
-            this.chkListScans.Name = "chkListScans";
-            this.chkListScans.Size = new System.Drawing.Size(646, 259);
-            this.chkListScans.TabIndex = 5;
-            // 
-            // richTextBox1
-            // 
-            this.richTextBox1.Location = new System.Drawing.Point(12, 390);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(646, 142);
-            this.richTextBox1.TabIndex = 4;
-            this.richTextBox1.Text = "";
-            // 
             // btnStartScan
             // 
             this.btnStartScan.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -101,78 +109,22 @@
             this.btnStartScan.UseVisualStyleBackColor = true;
             this.btnStartScan.Click += new System.EventHandler(this.btnStartScan_Click);
             // 
-            // tabPage2
+            // richTextBox1
             // 
-            this.tabPage2.Controls.Add(this.btnCompare);
-            this.tabPage2.Controls.Add(this.lblAfterCompare);
-            this.tabPage2.Controls.Add(this.lblBeforeCompare);
-            this.tabPage2.Controls.Add(this.btnCompareAfter);
-            this.tabPage2.Controls.Add(this.txtCompareBefore);
-            this.tabPage2.Controls.Add(this.listBox1);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(664, 576);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Compare";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            this.tabPage2.Enter += new System.EventHandler(this.tabPage2_Enter);
+            this.richTextBox1.Location = new System.Drawing.Point(12, 390);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(646, 142);
+            this.richTextBox1.TabIndex = 4;
+            this.richTextBox1.Text = "";
             // 
-            // btnCompare
+            // chkListScans
             // 
-            this.btnCompare.Location = new System.Drawing.Point(216, 481);
-            this.btnCompare.Name = "btnCompare";
-            this.btnCompare.Size = new System.Drawing.Size(168, 62);
-            this.btnCompare.TabIndex = 5;
-            this.btnCompare.Text = "Compare";
-            this.btnCompare.UseVisualStyleBackColor = true;
-            this.btnCompare.Click += new System.EventHandler(this.btnCompare_Click);
-            // 
-            // lblAfterCompare
-            // 
-            this.lblAfterCompare.AutoSize = true;
-            this.lblAfterCompare.Location = new System.Drawing.Point(271, 192);
-            this.lblAfterCompare.Name = "lblAfterCompare";
-            this.lblAfterCompare.Size = new System.Drawing.Size(10, 13);
-            this.lblAfterCompare.TabIndex = 4;
-            this.lblAfterCompare.Text = "-";
-            // 
-            // lblBeforeCompare
-            // 
-            this.lblBeforeCompare.AutoSize = true;
-            this.lblBeforeCompare.Location = new System.Drawing.Point(271, 92);
-            this.lblBeforeCompare.Name = "lblBeforeCompare";
-            this.lblBeforeCompare.Size = new System.Drawing.Size(10, 13);
-            this.lblBeforeCompare.TabIndex = 3;
-            this.lblBeforeCompare.Text = "-";
-            // 
-            // btnCompareAfter
-            // 
-            this.btnCompareAfter.Location = new System.Drawing.Point(253, 166);
-            this.btnCompareAfter.Name = "btnCompareAfter";
-            this.btnCompareAfter.Size = new System.Drawing.Size(75, 23);
-            this.btnCompareAfter.TabIndex = 2;
-            this.btnCompareAfter.Text = "After";
-            this.btnCompareAfter.UseVisualStyleBackColor = true;
-            this.btnCompareAfter.Click += new System.EventHandler(this.btnCompareAfter_Click);
-            // 
-            // txtCompareBefore
-            // 
-            this.txtCompareBefore.Location = new System.Drawing.Point(253, 66);
-            this.txtCompareBefore.Name = "txtCompareBefore";
-            this.txtCompareBefore.Size = new System.Drawing.Size(75, 23);
-            this.txtCompareBefore.TabIndex = 1;
-            this.txtCompareBefore.Text = "Before";
-            this.txtCompareBefore.UseVisualStyleBackColor = true;
-            this.txtCompareBefore.Click += new System.EventHandler(this.txtCompareBefore_Click);
-            // 
-            // listBox1
-            // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(25, 34);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(195, 394);
-            this.listBox1.TabIndex = 0;
+            this.chkListScans.CheckOnClick = true;
+            this.chkListScans.FormattingEnabled = true;
+            this.chkListScans.Location = new System.Drawing.Point(12, 26);
+            this.chkListScans.Name = "chkListScans";
+            this.chkListScans.Size = new System.Drawing.Size(646, 259);
+            this.chkListScans.TabIndex = 5;
             // 
             // chkToggle
             // 
@@ -192,6 +144,100 @@
             this.progressBar1.Size = new System.Drawing.Size(646, 23);
             this.progressBar1.TabIndex = 7;
             // 
+            // tabControl
+            // 
+            this.tabControl.Controls.Add(this.tabPage1);
+            this.tabControl.Controls.Add(this.tabPage2);
+            this.tabControl.Controls.Add(this.tabPage3);
+            this.tabControl.Location = new System.Drawing.Point(13, 13);
+            this.tabControl.Name = "tabControl";
+            this.tabControl.SelectedIndex = 0;
+            this.tabControl.Size = new System.Drawing.Size(672, 602);
+            this.tabControl.TabIndex = 0;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.lblAfterCompare);
+            this.tabPage2.Controls.Add(this.btnCompare);
+            this.tabPage2.Controls.Add(this.btnCompareAfter);
+            this.tabPage2.Controls.Add(this.lblBeforeCompare);
+            this.tabPage2.Controls.Add(this.lstSnapshots);
+            this.tabPage2.Controls.Add(this.txtCompareBefore);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(664, 576);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Compare";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabPage2.Enter += new System.EventHandler(this.tabPage2_Enter);
+            // 
+            // lblAfterCompare
+            // 
+            this.lblAfterCompare.AutoSize = true;
+            this.lblAfterCompare.Location = new System.Drawing.Point(174, 185);
+            this.lblAfterCompare.Name = "lblAfterCompare";
+            this.lblAfterCompare.Size = new System.Drawing.Size(10, 13);
+            this.lblAfterCompare.TabIndex = 10;
+            this.lblAfterCompare.Text = "-";
+            // 
+            // btnCompare
+            // 
+            this.btnCompare.Location = new System.Drawing.Point(10, 451);
+            this.btnCompare.Name = "btnCompare";
+            this.btnCompare.Size = new System.Drawing.Size(149, 62);
+            this.btnCompare.TabIndex = 11;
+            this.btnCompare.Text = "Compare";
+            this.btnCompare.UseVisualStyleBackColor = true;
+            this.btnCompare.Click += new System.EventHandler(this.btnCompare_Click);
+            // 
+            // btnCompareAfter
+            // 
+            this.btnCompareAfter.Location = new System.Drawing.Point(165, 159);
+            this.btnCompareAfter.Name = "btnCompareAfter";
+            this.btnCompareAfter.Size = new System.Drawing.Size(118, 23);
+            this.btnCompareAfter.TabIndex = 8;
+            this.btnCompareAfter.Text = "After";
+            this.btnCompareAfter.UseVisualStyleBackColor = true;
+            this.btnCompareAfter.Click += new System.EventHandler(this.btnCompareAfter_Click);
+            // 
+            // lblBeforeCompare
+            // 
+            this.lblBeforeCompare.AutoSize = true;
+            this.lblBeforeCompare.Location = new System.Drawing.Point(174, 91);
+            this.lblBeforeCompare.Name = "lblBeforeCompare";
+            this.lblBeforeCompare.Size = new System.Drawing.Size(10, 13);
+            this.lblBeforeCompare.TabIndex = 9;
+            this.lblBeforeCompare.Text = "-";
+            // 
+            // lstSnapshots
+            // 
+            this.lstSnapshots.FormattingEnabled = true;
+            this.lstSnapshots.Location = new System.Drawing.Point(6, 6);
+            this.lstSnapshots.Name = "lstSnapshots";
+            this.lstSnapshots.Size = new System.Drawing.Size(153, 420);
+            this.lstSnapshots.TabIndex = 6;
+            // 
+            // txtCompareBefore
+            // 
+            this.txtCompareBefore.Location = new System.Drawing.Point(165, 65);
+            this.txtCompareBefore.Name = "txtCompareBefore";
+            this.txtCompareBefore.Size = new System.Drawing.Size(118, 23);
+            this.txtCompareBefore.TabIndex = 7;
+            this.txtCompareBefore.Text = "Before";
+            this.txtCompareBefore.UseVisualStyleBackColor = true;
+            this.txtCompareBefore.Click += new System.EventHandler(this.txtCompareBefore_Click);
+            // 
+            // btnSaveExcel
+            // 
+            this.btnSaveExcel.Location = new System.Drawing.Point(177, 456);
+            this.btnSaveExcel.Name = "btnSaveExcel";
+            this.btnSaveExcel.Size = new System.Drawing.Size(111, 38);
+            this.btnSaveExcel.TabIndex = 2;
+            this.btnSaveExcel.Text = "Save as Excel File";
+            this.btnSaveExcel.UseVisualStyleBackColor = true;
+            this.btnSaveExcel.Click += new System.EventHandler(this.btnSaveExcel_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -200,9 +246,10 @@
             this.Controls.Add(this.tabControl);
             this.Name = "Form1";
             this.Text = "WindowsDiffTool";
-            this.tabControl.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.tabControl.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.ResumeLayout(false);
@@ -211,20 +258,24 @@
 
         #endregion
 
-        private System.Windows.Forms.TabControl tabControl;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.ListBox lstCompare;
+        private System.Windows.Forms.RichTextBox txtResult;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.Button btnStartScan;
-        private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.CheckedListBox chkListScans;
-        private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.Label lblAfterCompare;
-        private System.Windows.Forms.Label lblBeforeCompare;
-        private System.Windows.Forms.Button btnCompareAfter;
-        private System.Windows.Forms.Button txtCompareBefore;
-        private System.Windows.Forms.Button btnCompare;
-        private System.Windows.Forms.CheckBox chkToggle;
         private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.CheckBox chkToggle;
+        private System.Windows.Forms.CheckedListBox chkListScans;
+        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.Button btnStartScan;
+        private System.Windows.Forms.TabControl tabControl;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.Label lblAfterCompare;
+        private System.Windows.Forms.Button btnCompare;
+        private System.Windows.Forms.Button btnCompareAfter;
+        private System.Windows.Forms.Label lblBeforeCompare;
+        private System.Windows.Forms.ListBox lstSnapshots;
+        private System.Windows.Forms.Button txtCompareBefore;
+        private System.Windows.Forms.Button btnSaveExcel;
     }
 }
 

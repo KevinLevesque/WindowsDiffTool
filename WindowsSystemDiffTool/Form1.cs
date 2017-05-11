@@ -17,11 +17,11 @@ namespace WindowsSystemDiffTool
 {
     public partial class Form1 : Form, UIListener
     {
-        DiffToolScanner diffToolScanner;
+        DiffToolController diffToolScanner;
         LibrariesLoader librariesLoader;
 
-        CompareFile beforeCompare;
-        CompareFile afterCompare;
+        SnapshotFile beforeCompare;
+        SnapshotFile afterCompare;
 
         public Form1()
         {
@@ -30,16 +30,17 @@ namespace WindowsSystemDiffTool
             librariesLoader = new LibrariesLoader(this);
             librariesLoader.LoadAllAssemblies(System.Reflection.Assembly.GetAssembly(this.GetType()).Location);
 
-            diffToolScanner = new DiffToolScanner(this);
+            diffToolScanner = new DiffToolController(this);
 
             richTextBox1.ReadOnly = true;
             progressBar1.Maximum = 100;
 
+            txtResult.ReadOnly = true;
 
             foreach(Library lib in librariesLoader.GetLibraries())
             {
                 chkListScans.Items.Add(lib);
-                diffToolScanner.AllComponentsTypes.Add(lib.Scanner.TypeOfComponent());
+                diffToolScanner.ComponentsTypes.Add(lib.Scanner.TypeOfComponent());
             }
         }
         
@@ -47,14 +48,8 @@ namespace WindowsSystemDiffTool
 
         private void btnStartScan_Click(object sender, EventArgs e)
         {
-            if (richTextBox1.Text.Length > 0)
-            {
-                richTextBox1.Text = string.Empty;
-                progressBar1.Value = 0;
-            }
-            
-
-            
+            richTextBox1.Text = string.Empty;
+                    
 
             List<Library> librairies = new List<Library>();   
             for(int x = 0; x < chkListScans.CheckedItems.Count; x++)
@@ -63,6 +58,7 @@ namespace WindowsSystemDiffTool
             }
 
             diffToolScanner.StartScan(librairies);
+
         }
 
         public void sendStringToUI(string message)
@@ -76,10 +72,6 @@ namespace WindowsSystemDiffTool
             richTextBox1.ScrollToCaret();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //LoadDiff();
-        }
 
         private void tabPage2_Enter(object sender, EventArgs e)
         {
@@ -88,87 +80,29 @@ namespace WindowsSystemDiffTool
 
         private void LoadCompareTab()
         {
-            listBox1.Items.Clear();
-            foreach(CompareFile file in CompareFilesLoader.GetFiles())
+            lstSnapshots.Items.Clear();
+            foreach(SnapshotFile file in SnapshotFilesLoader.GetFiles())
             {
-                listBox1.Items.Add(file);
+                lstSnapshots.Items.Add(file);
             }
         }
 
         private void txtCompareBefore_Click(object sender, EventArgs e)
         {
-            lblBeforeCompare.Text = listBox1.SelectedItem.ToString();
-            beforeCompare = (CompareFile)listBox1.SelectedItem;
+            lblBeforeCompare.Text = lstSnapshots.SelectedItem.ToString();
+            beforeCompare = (SnapshotFile)lstSnapshots.SelectedItem;
         }
 
         private void btnCompareAfter_Click(object sender, EventArgs e)
         {
-            lblAfterCompare.Text = listBox1.SelectedItem.ToString();
-            afterCompare = (CompareFile)listBox1.SelectedItem;
+            lblAfterCompare.Text = lstSnapshots.SelectedItem.ToString();
+            afterCompare = (SnapshotFile)lstSnapshots.SelectedItem;
         }
 
         private void btnCompare_Click(object sender, EventArgs e)
         {
-            List<DiffResultWriter> diffWriters = new List<DiffResultWriter>();
-
-            List<ComponentGroup> beforeComponentGroup = diffToolScanner.ReadFromFile(beforeCompare.Info.FullName);
-            List<ComponentGroup> afterComponentGroup = diffToolScanner.ReadFromFile(afterCompare.Info.FullName);
-
-            foreach(ComponentGroup beforeGroup in beforeComponentGroup)
-            {
-                ComponentGroup afterGroup = afterComponentGroup.FirstOrDefault(x => x.ComponentName == beforeGroup.ComponentName);
-
-                try
-                {
-                    //Group exists in both lists
-                    if (afterGroup != null)
-                    {
-                        ObjectHandle obj = Activator.CreateInstance(beforeGroup.ComponentNameSpace, beforeGroup.ComponentNameSpace + "." + beforeGroup.ComponentName + "Diff");
-                        DiffCore diff = (DiffCore)obj.Unwrap();
-
-                        diff.beforeData = beforeGroup.Components;
-                        diff.afterData = afterGroup.Components;
-
-                        List<DiffResult> diffResults = diff.Start();
-
-                        diffWriters.Add(new DiffResultWriter(diffResults, beforeGroup.ComponentName));
-                    }
-                    else
-                        diffWriters.Add(new DiffResultWriter(null, beforeGroup.ComponentName));
-                }
-                catch
-                {
-                    diffWriters.Add(new DiffResultWriter(null, beforeGroup.ComponentName));
-                }
-
-            }
-
-            foreach (ComponentGroup afterGroup in afterComponentGroup)
-            {
-                ComponentGroup beforeGroup = beforeComponentGroup.FirstOrDefault(x => x.ComponentName == afterGroup.ComponentName);
-
-                //If beforegroup is null, component was only scanned in the "after" scan. 
-                if (beforeGroup == null)
-                {
-                    diffWriters.Add(new DiffResultWriter(null, afterGroup.ComponentName));
-                }
-                
-            }
-
-            Directory.CreateDirectory(@"C:\Temp\WindowsDiffTool\Compare");
-
-            string filePath = @"C:\Temp\WindowsDiffTool\Compare\" + DateTime.Now.ToString("yyyy-MM-dd_H_mm_ss") + ".txt";
-
-            using (StreamWriter sr = new StreamWriter(filePath))
-            {
-                foreach (DiffResultWriter reswriter in diffWriters)
-                {
-                    sr.Write(reswriter.GetText());
-                }
-            }
-
-            System.Diagnostics.Process.Start(filePath);
-
+            diffToolScanner.CreateCompareFileFromSnapshots(this.beforeCompare, this.afterCompare);
+            tabControl.SelectTab(2);
         }
 
         private void tabPage1_Click(object sender, EventArgs e)
@@ -189,6 +123,51 @@ namespace WindowsSystemDiffTool
         public void UpdatePercentComplete(int percentComplete)
         {
             progressBar1.Value = percentComplete;
+        }
+
+        public void UpdateCompareFilesList()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void tabPage3_Enter(object sender, EventArgs e)
+        {
+            LoadResultsTab();
+        }
+
+        private void LoadResultsTab()
+        {
+            lstCompare.Items.Clear();
+            foreach (CompareFile file in CompareFilesLoader.GetFiles().OrderByDescending(x => x.Info.ToString()))
+            {
+                lstCompare.Items.Add(file);
+            }
+
+            if (lstCompare.Items.Count > 0)
+                lstCompare.SelectedIndex = 0;
+        }
+
+        private void lstCompare_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            diffToolScanner.LoadCompareFile((CompareFile)lstCompare.SelectedItem);
+            txtResult.Text = diffToolScanner.GetTextFromSelectedCompareFile();
+        }
+
+        private void btnSaveExcel_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveDiag = new SaveFileDialog();
+
+            saveDiag.Filter = "Excel File|*.xlsx";
+
+            DialogResult result = saveDiag.ShowDialog();           
+
+
+            if (result == DialogResult.OK)
+            {
+                diffToolScanner.SaveSelectedCompareFileToExcel(saveDiag.FileName);
+
+                System.Diagnostics.Process.Start($"{saveDiag.FileName}");
+            }
         }
     }
 }

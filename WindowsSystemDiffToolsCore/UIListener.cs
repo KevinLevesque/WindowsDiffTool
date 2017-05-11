@@ -11,5 +11,7 @@ namespace WindowsSystemDiffToolsCore
         void sendStringToUI(string message);
 
         void UpdatePercentComplete(int percentComplete);
+
+        void UpdateCompareFilesList();
     }
 }

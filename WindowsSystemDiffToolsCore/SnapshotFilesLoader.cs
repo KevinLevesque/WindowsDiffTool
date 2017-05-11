@@ -7,30 +7,28 @@ using System.Threading.Tasks;
 
 namespace WindowsSystemDiffToolsCore
 {
-    public class CompareFilesLoader
+    public class SnapshotFilesLoader
     {
 
-        private CompareFilesLoader() { }
+        private SnapshotFilesLoader() { }
 
         //ToDo : Allow to load from another directory, maybe a config file ??
-        public static List<CompareFile> GetFiles()
+        public static List<SnapshotFile> GetFiles()
         {
-            Directory.CreateDirectory(@"C:\Temp\WindowsDiffTool\Compare");
+            Directory.CreateDirectory(@"C:\Temp\WindowsDiffTool\Snapshots");
 
-            List<CompareFile> files = new List<CompareFile>();
+            List<SnapshotFile> files = new List<SnapshotFile>();
             
-            foreach (string filePath in Directory.GetFiles(@"C:\Temp\WindowsDiffTool\Compare"))
+            foreach (string filePath in Directory.GetFiles(@"C:\Temp\WindowsDiffTool\Snapshots"))
             {
                 FileInfo file = new FileInfo(filePath);
 
                 if(file.Extension == ".xml")
-                    files.Add(new CompareFile(filePath));
+                    files.Add(new SnapshotFile(filePath));
             }
 
             return files;
         }
-
-
 
     }
 }

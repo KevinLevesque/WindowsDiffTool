@@ -24,13 +24,20 @@ namespace SystemEnvironmentVariable
             this.Value = entry.Value.ToString();
         }
 
- 
-        public override string ToString()
+
+
+
+        public override string getDisplayName()
         {
-            return $"{this.Name} [Value '{this.Value}']";
+            return this.Name;
         }
 
-
-
+        public override Dictionary<string, string> getItems()
+        {
+            return new Dictionary<string, string>()
+            {
+                { "Value", Value }
+            };
+        }
     }
 }

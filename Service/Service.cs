@@ -26,11 +26,7 @@ namespace Service
             this.Status = service.Status;
         }
 
- 
-        public override string ToString()
-        {
-            return $"{this.DisplayName} [ServiceName '{this.ServiceName}'][Status '{this.getStatusString()}']";
-        }
+
 
         private string getStatusString()
         {
@@ -53,6 +49,21 @@ namespace Service
                 default:
                     return "Unknown??";
             }
+        }
+
+
+        public override string getDisplayName()
+        {
+            return this.DisplayName;
+        }
+
+        public override Dictionary<string, string> getItems()
+        {
+            return new Dictionary<string, string>()
+            {
+                { "ServiceName", ServiceName },
+                { "Status", getStatusString() }
+            };
         }
 
     }

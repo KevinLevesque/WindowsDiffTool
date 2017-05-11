@@ -31,7 +31,7 @@ namespace FreeDiskSpace
                 if (afterItem == null)
                 {
                     //Drive has been deleted
-                    results.Add(DiffResult.Removed(beforeItem.ToString()));
+                    results.Add(DiffResult.Removed(beforeItem));
                     continue;
                 }
 
@@ -39,7 +39,7 @@ namespace FreeDiskSpace
                 //Drive space modified
                 if((beforeItem.AvailaibleSpace != afterItem.AvailaibleSpace))
                 {                    
-                    results.Add(DiffResult.Modified(beforeItem.ToString(), afterItem.ToString()));
+                    results.Add(DiffResult.Modified(beforeItem, afterItem));
                     continue;
                 }   
             }
@@ -51,7 +51,7 @@ namespace FreeDiskSpace
                 //New Drive
                 if(beforeItem == null)
                 {                    
-                    results.Add(DiffResult.Added(afterItem.ToString()));
+                    results.Add(DiffResult.Added(afterItem));
                 }
 
 

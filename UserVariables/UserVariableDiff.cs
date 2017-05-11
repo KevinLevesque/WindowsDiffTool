@@ -31,7 +31,7 @@ namespace UserVariables
                 if (afterItem == null)
                 {
                     //Variable has been deleted
-                    results.Add(DiffResult.Removed(beforeItem.ToString()));
+                    results.Add(DiffResult.Removed(beforeItem));
                     continue;
                 }
 
@@ -39,7 +39,7 @@ namespace UserVariables
                 //Value of variable modified
                 if((beforeItem.Value != afterItem.Value))
                 {                    
-                    results.Add(DiffResult.Modified(beforeItem.ToString(), afterItem.ToString()));
+                    results.Add(DiffResult.Modified(beforeItem, afterItem));
                     continue;
                 }   
             }
@@ -51,7 +51,7 @@ namespace UserVariables
                 //New Variable
                 if(beforeItem == null)
                 {                    
-                    results.Add(DiffResult.Added(afterItem.ToString()));
+                    results.Add(DiffResult.Added(afterItem));
                 }
 
 
