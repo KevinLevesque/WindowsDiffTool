@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemEnvironmentVariable",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeDiskSpace", "FreeDiskSpace\FreeDiskSpace.csproj", "{07CC1B48-EEA2-430F-9160-1DCD6D7B1865}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyDocuments", "MyDocuments\MyDocuments.csproj", "{3816185E-5944-4924-BDF6-BFAC905A11FF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -176,6 +178,24 @@ Global
 		{07CC1B48-EEA2-430F-9160-1DCD6D7B1865}.Release|x64.Build.0 = Release|Any CPU
 		{07CC1B48-EEA2-430F-9160-1DCD6D7B1865}.Release|x86.ActiveCfg = Release|x86
 		{07CC1B48-EEA2-430F-9160-1DCD6D7B1865}.Release|x86.Build.0 = Release|x86
+		{3816185E-5944-4924-BDF6-BFAC905A11FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3816185E-5944-4924-BDF6-BFAC905A11FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3816185E-5944-4924-BDF6-BFAC905A11FF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3816185E-5944-4924-BDF6-BFAC905A11FF}.Debug|x64.Build.0 = Debug|Any CPU
+		{3816185E-5944-4924-BDF6-BFAC905A11FF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3816185E-5944-4924-BDF6-BFAC905A11FF}.Debug|x86.Build.0 = Debug|Any CPU
+		{3816185E-5944-4924-BDF6-BFAC905A11FF}.Release 2|Any CPU.ActiveCfg = Release|Any CPU
+		{3816185E-5944-4924-BDF6-BFAC905A11FF}.Release 2|Any CPU.Build.0 = Release|Any CPU
+		{3816185E-5944-4924-BDF6-BFAC905A11FF}.Release 2|x64.ActiveCfg = Release|Any CPU
+		{3816185E-5944-4924-BDF6-BFAC905A11FF}.Release 2|x64.Build.0 = Release|Any CPU
+		{3816185E-5944-4924-BDF6-BFAC905A11FF}.Release 2|x86.ActiveCfg = Release|Any CPU
+		{3816185E-5944-4924-BDF6-BFAC905A11FF}.Release 2|x86.Build.0 = Release|Any CPU
+		{3816185E-5944-4924-BDF6-BFAC905A11FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3816185E-5944-4924-BDF6-BFAC905A11FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3816185E-5944-4924-BDF6-BFAC905A11FF}.Release|x64.ActiveCfg = Release|Any CPU
+		{3816185E-5944-4924-BDF6-BFAC905A11FF}.Release|x64.Build.0 = Release|Any CPU
+		{3816185E-5944-4924-BDF6-BFAC905A11FF}.Release|x86.ActiveCfg = Release|Any CPU
+		{3816185E-5944-4924-BDF6-BFAC905A11FF}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

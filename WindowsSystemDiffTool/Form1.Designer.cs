@@ -46,6 +46,8 @@
             this.lstSnapshots = new System.Windows.Forms.ListBox();
             this.txtCompareBefore = new System.Windows.Forms.Button();
             this.btnSaveExcel = new System.Windows.Forms.Button();
+            this.txtCompareLogs = new System.Windows.Forms.RichTextBox();
+            this.progressBarCompare = new System.Windows.Forms.ProgressBar();
             this.tabPage3.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabControl.SuspendLayout();
@@ -157,6 +159,8 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.progressBarCompare);
+            this.tabPage2.Controls.Add(this.txtCompareLogs);
             this.tabPage2.Controls.Add(this.lblAfterCompare);
             this.tabPage2.Controls.Add(this.btnCompare);
             this.tabPage2.Controls.Add(this.btnCompareAfter);
@@ -238,6 +242,21 @@
             this.btnSaveExcel.UseVisualStyleBackColor = true;
             this.btnSaveExcel.Click += new System.EventHandler(this.btnSaveExcel_Click);
             // 
+            // txtCompareLogs
+            // 
+            this.txtCompareLogs.Location = new System.Drawing.Point(314, 3);
+            this.txtCompareLogs.Name = "txtCompareLogs";
+            this.txtCompareLogs.Size = new System.Drawing.Size(334, 507);
+            this.txtCompareLogs.TabIndex = 12;
+            this.txtCompareLogs.Text = "";
+            // 
+            // progressBarCompare
+            // 
+            this.progressBarCompare.Location = new System.Drawing.Point(10, 520);
+            this.progressBarCompare.Name = "progressBarCompare";
+            this.progressBarCompare.Size = new System.Drawing.Size(638, 38);
+            this.progressBarCompare.TabIndex = 13;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -276,6 +295,8 @@
         private System.Windows.Forms.ListBox lstSnapshots;
         private System.Windows.Forms.Button txtCompareBefore;
         private System.Windows.Forms.Button btnSaveExcel;
+        private System.Windows.Forms.ProgressBar progressBarCompare;
+        private System.Windows.Forms.RichTextBox txtCompareLogs;
     }
 }
 

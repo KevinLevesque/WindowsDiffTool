@@ -7,15 +7,23 @@ using System.Threading.Tasks;
 
 namespace WindowsSystemDiffToolsCore
 {
-    public static class DiffComparator
+    public class DiffComparator
     {
+        UIListener Listener;
 
-        public static List<DiffResultsGroup> Compare(List<ComponentGroup> beforeComponentGroup, List<ComponentGroup> afterComponentGroup)
+        public DiffComparator(UIListener listener) {
+            Listener = listener;
+        }
+
+        public List<DiffResultsGroup> Compare(List<ComponentGroup> beforeComponentGroup, List<ComponentGroup> afterComponentGroup)
         {
             List<DiffResultsGroup> diffResultGroups = new List<DiffResultsGroup>();
 
+            int count = 0;
             foreach (ComponentGroup beforeGroup in beforeComponentGroup)
             {
+                Listener.UpdateCompareMessage($"Currently comparing {beforeGroup.ComponentName}");
+
                 ComponentGroup afterGroup = afterComponentGroup.FirstOrDefault(x => x.ComponentName == beforeGroup.ComponentName);
 
                 try
@@ -29,13 +37,22 @@ namespace WindowsSystemDiffToolsCore
                         diff.beforeData = beforeGroup.Components;
                         diff.afterData = afterGroup.Components;
 
+                        
+
                         List<DiffResult> diffResults = diff.Start();
                         diffResultGroups.Add(new DiffResultsGroup(diffResults, beforeGroup.ComponentName));
+
+
                     }
                     else
                     {
                         diffResultGroups.Add(new DiffResultsGroup(null, beforeGroup.ComponentName));
                     }
+
+
+                    count++;
+                    Listener.UpdateCompareMessage($"Comparing {beforeGroup.ComponentName} completed." + Environment.NewLine);
+                    Listener.UpdateComparePercentComplete((count / beforeComponentGroup.Count) * 100);
                 }
                 catch (Exception ex)
                 {
@@ -50,7 +67,7 @@ namespace WindowsSystemDiffToolsCore
                 //If beforegroup is null, component was only scanned in the "after" scan. 
                 if (beforeGroup == null)
                 {
-                    diffResultGroups.Add(new DiffResultsGroup(null, beforeGroup.ComponentName));
+                    diffResultGroups.Add(new DiffResultsGroup(null, afterGroup.ComponentName));
                 }
 
             }

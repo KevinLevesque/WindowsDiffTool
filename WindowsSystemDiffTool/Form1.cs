@@ -35,6 +35,9 @@ namespace WindowsSystemDiffTool
             richTextBox1.ReadOnly = true;
             progressBar1.Maximum = 100;
 
+            txtCompareLogs.ReadOnly = true;
+            progressBarCompare.Maximum = 100;
+
             txtResult.ReadOnly = true;
 
             foreach(Library lib in librariesLoader.GetLibraries())
@@ -101,6 +104,9 @@ namespace WindowsSystemDiffTool
 
         private void btnCompare_Click(object sender, EventArgs e)
         {
+            progressBarCompare.Value = 0;
+            txtCompareLogs.Text = string.Empty;
+
             diffToolScanner.CreateCompareFileFromSnapshots(this.beforeCompare, this.afterCompare);
             tabControl.SelectTab(2);
         }
@@ -168,6 +174,22 @@ namespace WindowsSystemDiffTool
 
                 System.Diagnostics.Process.Start($"{saveDiag.FileName}");
             }
+        }
+
+        public void UpdateCompareMessage(string message)
+        {
+            if (txtCompareLogs.Text.Length > 0)
+                txtCompareLogs.Text += Environment.NewLine;
+
+            txtCompareLogs.Text += message;
+
+            txtCompareLogs.SelectionStart = txtCompareLogs.Text.Length;
+            txtCompareLogs.ScrollToCaret();
+        }
+
+        public void UpdateComparePercentComplete(int percentComplete)
+        {
+            progressBarCompare.Value = percentComplete;
         }
     }
 }

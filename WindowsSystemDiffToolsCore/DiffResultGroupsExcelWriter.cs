@@ -40,31 +40,63 @@ namespace WindowsSystemDiffToolsCore
 
         private void WriteData(IXLWorksheet ws, List<DiffResult> results)
         {
+            int row = 2;
+
             for (int x=0; x<results.Count; x++)
             {
-                ws.Cell($"A{x+2}").Value = results[x].AfterComponent.getDisplayName();
 
-                int y = 1;
-                foreach (KeyValuePair<string, string> item in results[x].AfterComponent.getItems())
+                ws.Cell($"A{row}").Value = "Before";
+                if (results[x].BeforeComponent != null)
                 {
-                    ws.Cell($"{columns[y]}{x + 2}").Value = item.Value;
-                    y++;
+                    ws.Cell($"B{row}").Value = results[x].BeforeComponent.getDisplayName();
+                    WriteComponent(results[x].BeforeComponent, ws, row, results[x].Type);
+                }
+                else
+                {
+                    ws.Cell($"B{row}").Value = "---ADDED---";
                 }
 
-                ws.Cell($"{columns[y]}{x + 2}").Value = results[x].Type.ToString();
+                row++;
+
+                ws.Cell($"A{row}").Value = "After";
+                if (results[x].AfterComponent != null)
+                {
+                    ws.Cell($"B{row}").Value = results[x].AfterComponent.getDisplayName();
+                    WriteComponent(results[x].AfterComponent, ws, row, results[x].Type);
+                }
+                else
+                {
+                    ws.Cell($"B{row}").Value = "---DELETED---";
+                }
+
+                row += 2;
+
+            }
+        }
+
+        private void WriteComponent(Component c, IXLWorksheet ws, int row, DiffResultType diffType)
+        {
+            int y = 2;
+            foreach (KeyValuePair<string, string> item in c.getItems())
+            {
+                ws.Cell($"{columns[y]}{row}").Value = item.Value;
+                y++;
             }
         }
 
         private void WriteHeader(IXLWorksheet ws, DiffResult diff)
         {
+            Component comp = diff.AfterComponent;
 
-            int x = 1;
-            foreach(KeyValuePair<string, string> item in diff.AfterComponent.getItems())
+            if (comp == null)
+                comp = diff.BeforeComponent;
+
+            int x = 2;
+            foreach(KeyValuePair<string, string> item in comp.getItems())
             {
                 ws.Cell($"{columns[x]}1").Value = item.Key;
                 x++;
             }
-            ws.Cell($"{columns[x]}1").Value = "DiffType";
         }
 
         public void Save()

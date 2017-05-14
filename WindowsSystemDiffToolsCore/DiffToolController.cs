@@ -17,6 +17,7 @@ namespace WindowsSystemDiffToolsCore
 
         private List<ComponentGroup> ScanResults;
         private List<DiffResultsGroup> CurrentCompareFileSelectedResult;
+        private DiffComparator DiffComparator;
 
 
         public DiffToolController(UIListener listener)
@@ -24,6 +25,7 @@ namespace WindowsSystemDiffToolsCore
             ScanResults = new List<ComponentGroup>();
             Listener = listener;
             ComponentsTypes = new List<Type>();
+            DiffComparator = new DiffComparator(Listener);
         }
 
 

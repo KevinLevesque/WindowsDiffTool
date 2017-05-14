@@ -108,6 +108,10 @@
       <Project>{fef52358-54c6-48a1-b894-a07d375640e0}</Project>
       <Name>InstalledPrograms32bitsScanner</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MyDocuments\MyDocuments.csproj">
+      <Project>{3816185e-5944-4924-bdf6-bfac905a11ff}</Project>
+      <Name>MyDocuments</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Service\Service.csproj">
       <Project>{d8bd7d79-05a3-49d2-98a2-e2386620aba9}</Project>
       <Name>Service</Name>
