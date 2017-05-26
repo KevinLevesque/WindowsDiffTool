@@ -61,7 +61,6 @@ namespace WindowsSystemDiffTool
             }
 
             diffToolScanner.StartScan(librairies);
-
         }
 
         public void sendStringToUI(string message)
@@ -185,11 +184,14 @@ namespace WindowsSystemDiffTool
 
             txtCompareLogs.SelectionStart = txtCompareLogs.Text.Length;
             txtCompareLogs.ScrollToCaret();
+
+            Application.DoEvents();
         }
 
         public void UpdateComparePercentComplete(int percentComplete)
         {
             progressBarCompare.Value = percentComplete;
+            progressBarCompare.Refresh();
         }
     }
 }

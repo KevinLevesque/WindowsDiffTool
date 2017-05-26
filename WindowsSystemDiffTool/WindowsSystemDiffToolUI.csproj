@@ -12,6 +12,23 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>D:\Users\Kevin\Desktop\Windows Diff Tool\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <AutorunEnabled>true</AutorunEnabled>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -46,6 +63,18 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release 2|x86'">
     <PlatformTarget>x86</PlatformTarget>
     <OutputPath>bin\x86\Release 2\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>DAC54A85CE5D45B4D71ECD3FEEA693BBC49995A0</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>WindowsSystemDiffToolUI_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -90,15 +119,31 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="WindowsSystemDiffToolUI_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\FreeDiskSpace\FreeDiskSpace.csproj">
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DiskRootScanner\DiskRootScanner.csproj">
+      <Project>{f2f3f137-bdf3-480e-b8bc-778695130404}</Project>
+      <Name>DiskRootScanner</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FreeDiskSpaceScanner\FreeDiskSpaceScanner.csproj">
       <Project>{07cc1b48-eea2-430f-9160-1dcd6d7b1865}</Project>
-      <Name>FreeDiskSpace</Name>
+      <Name>FreeDiskSpaceScanner</Name>
     </ProjectReference>
     <ProjectReference Include="..\InstalledPrograms64bitsScanner\InstalledPrograms64bitsScanner.csproj">
       <Project>{abc65a7a-78da-44ea-a079-cf4c212845af}</Project>
@@ -108,21 +153,25 @@
       <Project>{fef52358-54c6-48a1-b894-a07d375640e0}</Project>
       <Name>InstalledPrograms32bitsScanner</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MyDocuments\MyDocuments.csproj">
+    <ProjectReference Include="..\MyDocumentsScanner\MyDocumentsScanner.csproj">
       <Project>{3816185e-5944-4924-bdf6-bfac905a11ff}</Project>
-      <Name>MyDocuments</Name>
+      <Name>MyDocumentsScanner</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Service\Service.csproj">
+    <ProjectReference Include="..\ServicesScanner\ServicesScanner.csproj">
       <Project>{d8bd7d79-05a3-49d2-98a2-e2386620aba9}</Project>
-      <Name>Service</Name>
+      <Name>ServicesScanner</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SystemEnvironmentVariable\SystemEnvironmentVariable.csproj">
+    <ProjectReference Include="..\SystemEnvironmentVariablesScanner\SystemEnvironmentVariablesScanner.csproj">
       <Project>{4dc5b41d-4d6f-4ecd-b19d-2b1073a6e0fa}</Project>
-      <Name>SystemEnvironmentVariable</Name>
+      <Name>SystemEnvironmentVariablesScanner</Name>
     </ProjectReference>
-    <ProjectReference Include="..\UserVariables\UserVariables.csproj">
+    <ProjectReference Include="..\ScheduledTasksScanner\ScheduledTasksScanner.csproj">
+      <Project>{f763530b-ca0e-4ea5-b1cc-d5b5c4ed4397}</Project>
+      <Name>ScheduledTasksScanner</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UserEnvironmentVariablesScanner\UserEnvironmentVariablesScanner.csproj">
       <Project>{d48547a2-58f7-4b54-9768-f44772b2e92a}</Project>
-      <Name>UserVariables</Name>
+      <Name>UserEnvironmentVariablesScanner</Name>
     </ProjectReference>
     <ProjectReference Include="..\WindowsSystemDiffToolsCore\WindowsSystemDiffToolsCore.csproj">
       <Project>{87e4859a-d7b0-4a84-a2d3-1d54f8b74568}</Project>

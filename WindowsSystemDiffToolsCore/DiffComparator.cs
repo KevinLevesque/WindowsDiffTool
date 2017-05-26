@@ -52,7 +52,7 @@ namespace WindowsSystemDiffToolsCore
 
                     count++;
                     Listener.UpdateCompareMessage($"Comparing {beforeGroup.ComponentName} completed." + Environment.NewLine);
-                    Listener.UpdateComparePercentComplete((count / beforeComponentGroup.Count) * 100);
+                    Listener.UpdateComparePercentComplete((int)Math.Ceiling(((float)count / (float)beforeComponentGroup.Count) * (float)100));
                 }
                 catch (Exception ex)
                 {

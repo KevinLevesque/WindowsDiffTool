@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+	<Product Id="*" Name="Installer" Language="1033" Version="1.0.0.0" Manufacturer="" UpgradeCode="dd43d193-fde2-4cbe-a5c6-991656eec69f">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate />
+
+		<Feature Id="ProductFeature" Title="Installer" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+		</Feature>
+	</Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLFOLDER" Name="Installer" />
+			</Directory>
+		</Directory>
+	</Fragment>
+
+	<Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+			<File Source="$(var.DiskRootScanner.TargetPath)" />
+      <File Source="$(var.FreeDiskSpaceScanner.TargetPath)" />
+      <File Source="$(var.InstalledPrograms32bitsScanner.TargetPath)" />
+      <File Source="$(var.InstalledPrograms64bitsScanner.TargetPath)" />
+      <File Source="$(var.MyDocumentsScanner.TargetPath)" />
+      <File Source="$(var.ScheduledTasksScanner.TargetPath)" />
+      <File Source="$(var.ServicesScanner.TargetPath)" />
+      <File Source="$(var.SystemEnvironmentVariablesScanner.TargetPath)" />
+      <File Source="$(var.UserEnvironmentVariablesScanner.TargetPath)" />
+      <File Source="$(var.WindowsSystemDiffToolsCore.TargetPath)" />
+      <File Source="$(var.WindowsSystemDiffToolUI.TargetPath)" />
+		</ComponentGroup>
+	</Fragment>
+</Wix>

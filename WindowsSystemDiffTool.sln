@@ -11,15 +11,21 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstalledPrograms32bitsScan
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstalledPrograms64bitsScanner", "InstalledPrograms64bitsScanner\InstalledPrograms64bitsScanner.csproj", "{ABC65A7A-78DA-44EA-A079-CF4C212845AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{D8BD7D79-05A3-49D2-98A2-E2386620ABA9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicesScanner", "ServicesScanner\ServicesScanner.csproj", "{D8BD7D79-05A3-49D2-98A2-E2386620ABA9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserVariables", "UserVariables\UserVariables.csproj", "{D48547A2-58F7-4B54-9768-F44772B2E92A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserEnvironmentVariablesScanner", "UserEnvironmentVariablesScanner\UserEnvironmentVariablesScanner.csproj", "{D48547A2-58F7-4B54-9768-F44772B2E92A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemEnvironmentVariable", "SystemEnvironmentVariable\SystemEnvironmentVariable.csproj", "{4DC5B41D-4D6F-4ECD-B19D-2B1073A6E0FA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemEnvironmentVariablesScanner", "SystemEnvironmentVariablesScanner\SystemEnvironmentVariablesScanner.csproj", "{4DC5B41D-4D6F-4ECD-B19D-2B1073A6E0FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeDiskSpace", "FreeDiskSpace\FreeDiskSpace.csproj", "{07CC1B48-EEA2-430F-9160-1DCD6D7B1865}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeDiskSpaceScanner", "FreeDiskSpaceScanner\FreeDiskSpaceScanner.csproj", "{07CC1B48-EEA2-430F-9160-1DCD6D7B1865}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyDocuments", "MyDocuments\MyDocuments.csproj", "{3816185E-5944-4924-BDF6-BFAC905A11FF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyDocumentsScanner", "MyDocumentsScanner\MyDocumentsScanner.csproj", "{3816185E-5944-4924-BDF6-BFAC905A11FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScheduledTasksScanner", "ScheduledTasksScanner\ScheduledTasksScanner.csproj", "{F763530B-CA0E-4EA5-B1CC-D5B5C4ED4397}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiskRootScanner", "DiskRootScanner\DiskRootScanner.csproj", "{F2F3F137-BDF3-480E-B8BC-778695130404}"
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Installer", "Installer\Installer.wixproj", "{0263C1D9-DE70-4938-8452-4E3EEBF63AD2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -196,6 +202,56 @@ Global
 		{3816185E-5944-4924-BDF6-BFAC905A11FF}.Release|x64.Build.0 = Release|Any CPU
 		{3816185E-5944-4924-BDF6-BFAC905A11FF}.Release|x86.ActiveCfg = Release|Any CPU
 		{3816185E-5944-4924-BDF6-BFAC905A11FF}.Release|x86.Build.0 = Release|Any CPU
+		{F763530B-CA0E-4EA5-B1CC-D5B5C4ED4397}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F763530B-CA0E-4EA5-B1CC-D5B5C4ED4397}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F763530B-CA0E-4EA5-B1CC-D5B5C4ED4397}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F763530B-CA0E-4EA5-B1CC-D5B5C4ED4397}.Debug|x64.Build.0 = Debug|Any CPU
+		{F763530B-CA0E-4EA5-B1CC-D5B5C4ED4397}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F763530B-CA0E-4EA5-B1CC-D5B5C4ED4397}.Debug|x86.Build.0 = Debug|Any CPU
+		{F763530B-CA0E-4EA5-B1CC-D5B5C4ED4397}.Release 2|Any CPU.ActiveCfg = Release|Any CPU
+		{F763530B-CA0E-4EA5-B1CC-D5B5C4ED4397}.Release 2|Any CPU.Build.0 = Release|Any CPU
+		{F763530B-CA0E-4EA5-B1CC-D5B5C4ED4397}.Release 2|x64.ActiveCfg = Release|Any CPU
+		{F763530B-CA0E-4EA5-B1CC-D5B5C4ED4397}.Release 2|x64.Build.0 = Release|Any CPU
+		{F763530B-CA0E-4EA5-B1CC-D5B5C4ED4397}.Release 2|x86.ActiveCfg = Release|Any CPU
+		{F763530B-CA0E-4EA5-B1CC-D5B5C4ED4397}.Release 2|x86.Build.0 = Release|Any CPU
+		{F763530B-CA0E-4EA5-B1CC-D5B5C4ED4397}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F763530B-CA0E-4EA5-B1CC-D5B5C4ED4397}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F763530B-CA0E-4EA5-B1CC-D5B5C4ED4397}.Release|x64.ActiveCfg = Release|Any CPU
+		{F763530B-CA0E-4EA5-B1CC-D5B5C4ED4397}.Release|x64.Build.0 = Release|Any CPU
+		{F763530B-CA0E-4EA5-B1CC-D5B5C4ED4397}.Release|x86.ActiveCfg = Release|Any CPU
+		{F763530B-CA0E-4EA5-B1CC-D5B5C4ED4397}.Release|x86.Build.0 = Release|Any CPU
+		{F2F3F137-BDF3-480E-B8BC-778695130404}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2F3F137-BDF3-480E-B8BC-778695130404}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2F3F137-BDF3-480E-B8BC-778695130404}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F2F3F137-BDF3-480E-B8BC-778695130404}.Debug|x64.Build.0 = Debug|Any CPU
+		{F2F3F137-BDF3-480E-B8BC-778695130404}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F2F3F137-BDF3-480E-B8BC-778695130404}.Debug|x86.Build.0 = Debug|Any CPU
+		{F2F3F137-BDF3-480E-B8BC-778695130404}.Release 2|Any CPU.ActiveCfg = Release|Any CPU
+		{F2F3F137-BDF3-480E-B8BC-778695130404}.Release 2|Any CPU.Build.0 = Release|Any CPU
+		{F2F3F137-BDF3-480E-B8BC-778695130404}.Release 2|x64.ActiveCfg = Release|Any CPU
+		{F2F3F137-BDF3-480E-B8BC-778695130404}.Release 2|x64.Build.0 = Release|Any CPU
+		{F2F3F137-BDF3-480E-B8BC-778695130404}.Release 2|x86.ActiveCfg = Release|Any CPU
+		{F2F3F137-BDF3-480E-B8BC-778695130404}.Release 2|x86.Build.0 = Release|Any CPU
+		{F2F3F137-BDF3-480E-B8BC-778695130404}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2F3F137-BDF3-480E-B8BC-778695130404}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2F3F137-BDF3-480E-B8BC-778695130404}.Release|x64.ActiveCfg = Release|Any CPU
+		{F2F3F137-BDF3-480E-B8BC-778695130404}.Release|x64.Build.0 = Release|Any CPU
+		{F2F3F137-BDF3-480E-B8BC-778695130404}.Release|x86.ActiveCfg = Release|Any CPU
+		{F2F3F137-BDF3-480E-B8BC-778695130404}.Release|x86.Build.0 = Release|Any CPU
+		{0263C1D9-DE70-4938-8452-4E3EEBF63AD2}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{0263C1D9-DE70-4938-8452-4E3EEBF63AD2}.Debug|x64.ActiveCfg = Debug|x86
+		{0263C1D9-DE70-4938-8452-4E3EEBF63AD2}.Debug|x86.ActiveCfg = Debug|x86
+		{0263C1D9-DE70-4938-8452-4E3EEBF63AD2}.Debug|x86.Build.0 = Debug|x86
+		{0263C1D9-DE70-4938-8452-4E3EEBF63AD2}.Release 2|Any CPU.ActiveCfg = Release|x86
+		{0263C1D9-DE70-4938-8452-4E3EEBF63AD2}.Release 2|Any CPU.Build.0 = Release|x86
+		{0263C1D9-DE70-4938-8452-4E3EEBF63AD2}.Release 2|x64.ActiveCfg = Release|x86
+		{0263C1D9-DE70-4938-8452-4E3EEBF63AD2}.Release 2|x64.Build.0 = Release|x86
+		{0263C1D9-DE70-4938-8452-4E3EEBF63AD2}.Release 2|x86.ActiveCfg = Release|x86
+		{0263C1D9-DE70-4938-8452-4E3EEBF63AD2}.Release 2|x86.Build.0 = Release|x86
+		{0263C1D9-DE70-4938-8452-4E3EEBF63AD2}.Release|Any CPU.ActiveCfg = Release|x86
+		{0263C1D9-DE70-4938-8452-4E3EEBF63AD2}.Release|x64.ActiveCfg = Release|x86
+		{0263C1D9-DE70-4938-8452-4E3EEBF63AD2}.Release|x86.ActiveCfg = Release|x86
+		{0263C1D9-DE70-4938-8452-4E3EEBF63AD2}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
