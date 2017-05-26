@@ -71,10 +71,16 @@
     <ManifestKeyFile>WindowsSystemDiffToolUI_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateManifests>true</GenerateManifests>
+    <GenerateManifests>false</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -110,6 +116,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="app.manifest">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -141,6 +150,10 @@
       <Project>{f2f3f137-bdf3-480e-b8bc-778695130404}</Project>
       <Name>DiskRootScanner</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ExcelAddinsScanner\ExcelAddinsScanner.csproj">
+      <Project>{efc6d021-6407-47ce-aaff-f7767ddaf423}</Project>
+      <Name>ExcelAddinsScanner</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FreeDiskSpaceScanner\FreeDiskSpaceScanner.csproj">
       <Project>{07cc1b48-eea2-430f-9160-1dcd6d7b1865}</Project>
       <Name>FreeDiskSpaceScanner</Name>
@@ -156,6 +169,10 @@
     <ProjectReference Include="..\MyDocumentsScanner\MyDocumentsScanner.csproj">
       <Project>{3816185e-5944-4924-bdf6-bfac905a11ff}</Project>
       <Name>MyDocumentsScanner</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OutlookAddinsScanner\OutlookAddinsScanner.csproj">
+      <Project>{f98e9e06-a404-4cc3-bb2e-307dae701663}</Project>
+      <Name>OutlookAddinsScanner</Name>
     </ProjectReference>
     <ProjectReference Include="..\ServicesScanner\ServicesScanner.csproj">
       <Project>{d8bd7d79-05a3-49d2-98a2-e2386620aba9}</Project>
@@ -176,6 +193,10 @@
     <ProjectReference Include="..\WindowsSystemDiffToolsCore\WindowsSystemDiffToolsCore.csproj">
       <Project>{87e4859a-d7b0-4a84-a2d3-1d54f8b74568}</Project>
       <Name>WindowsSystemDiffToolsCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WordAddinsScanner\WordAddinsScanner.csproj">
+      <Project>{b904d8d9-dbde-477c-a395-53a124d5ecce}</Project>
+      <Name>WordAddinsScanner</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

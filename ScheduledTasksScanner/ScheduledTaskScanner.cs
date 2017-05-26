@@ -22,48 +22,26 @@ namespace ScheduledTasksScanner
         public override List<Component> Scan()
         {
             string path = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
-            Process process = new Process();
 
-                            process.StartInfo = new ProcessStartInfo("takeown", $@"{path + @"\System32\Tasks"} /A /R");
-                process.Start();
-
-                process.StartInfo = new ProcessStartInfo("takeown", $@"{path + @"\SysWow64\Tasks"} /A /R");
-                process.Start();
-
-                process.StartInfo = new ProcessStartInfo("icacls", $@"{path + @"\System32\Tasks"} /T /grant {System.Security.Principal.WindowsIdentity.GetCurrent().Name}:F");
-                process.Start();
-
-                process.StartInfo = new ProcessStartInfo("icacls", $@"{path + @"\SysWow64\Tasks"} /T /grant {System.Security.Principal.WindowsIdentity.GetCurrent().Name}:F");
-                process.Start();
-
-
-            if (Directory.Exists(path + @"\Sysnative"))
+            try
             {
-                process.StartInfo = new ProcessStartInfo("takeown", $@"{path + @"\Sysnative\Tasks"} /A /R");
-                process.Start();
-
-                process.StartInfo = new ProcessStartInfo("takeown", $@"{path + @"\System32\Tasks"} /A /R");
-                process.Start();
-
-                process.StartInfo = new ProcessStartInfo("icacls", $@"{path + @"\Sysnative\Tasks"} /T /grant {System.Security.Principal.WindowsIdentity.GetCurrent().Name}:F");
-                process.Start();
-
-                process.StartInfo = new ProcessStartInfo("icacls", $@"{path + @"\System32\Tasks"} /T /grant {System.Security.Principal.WindowsIdentity.GetCurrent().Name}:F");
-                process.Start();
-
-                GetItems(path + @"\Sysnative\Tasks");
-                GetItems(path + @"\System32\Tasks");
+                if (Directory.Exists(path + @"\Sysnative"))
+                {
+                    GetItems(path + @"\Sysnative\Tasks");
+                    GetItems(path + @"\System32\Tasks");
+                }
+                else
+                {
+                    GetItems(path + @"\System32\Tasks");
+                    GetItems(path + @"\SysWow64\Tasks");
+                }
             }
-            else
+            catch(Exception ex)
             {
-
-
-
-                
-
-                GetItems(path + @"\System32\Tasks");
-                GetItems(path + @"\SysWow64\Tasks");
+                Listener.sendStringToUI($@"You do not have the rights to access the {path}\System32\Tasks and {path}\SysWoW64\Tasks folders");
+                return new List<Component>();
             }
+ 
             
 
             Listener.sendStringToUI($"Scanned {items.Count} items in the Task Scheduler");
