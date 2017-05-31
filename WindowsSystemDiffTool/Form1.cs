@@ -1,15 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Runtime.Remoting;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using WindowsSystemDiffToolsCore;
 
@@ -225,9 +218,14 @@ namespace WindowsSystemDiffTool
             {
                 Thread.CurrentThread.IsBackground = true;
                 txtResult.Invoke((MethodInvoker)(() =>
-               {
-                   txtResult.Text = diffToolScanner.GetTextFromSelectedCompareFile();
-               }));
+                {
+                    string res = diffToolScanner.GetTextFromSelectedCompareFile();
+
+                    if (res.Length <= Int32.MaxValue)
+                        txtResult.Text = res;
+                    else
+                        txtResult.Text = "Differential result too big, please open in txt file.";
+                }));
             });
             threadProcess.Start();
         }
