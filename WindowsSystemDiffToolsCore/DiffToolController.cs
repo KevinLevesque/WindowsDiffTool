@@ -129,6 +129,14 @@ namespace WindowsSystemDiffToolsCore
             return DiffResultGroupsTextWriter.GetText(this.CurrentCompareFileSelectedResult);
         }
 
+        public void SaveTextToTempTxtFile()
+        {
+            using (StreamWriter sr = new StreamWriter(@"C:\Temp\WindowsDiffTool\temp.txt"))
+            {
+                sr.Write(DiffResultGroupsTextWriter.GetText(this.CurrentCompareFileSelectedResult));
+            }
+        }
+
         public void SaveSelectedCompareFileToExcel(string filePath)
         {
             DiffResultGroupsExcelWriter excelwriter = new DiffResultGroupsExcelWriter(filePath);

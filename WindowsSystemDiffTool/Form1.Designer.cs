@@ -29,25 +29,26 @@
         private void InitializeComponent()
         {
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.txtResult = new System.Windows.Forms.RichTextBox();
+            this.btnSaveExcel = new System.Windows.Forms.Button();
             this.lstCompare = new System.Windows.Forms.ListBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.btnStartScan = new System.Windows.Forms.Button();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.chkListScans = new System.Windows.Forms.CheckedListBox();
-            this.chkToggle = new System.Windows.Forms.CheckBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.chkToggle = new System.Windows.Forms.CheckBox();
+            this.chkListScans = new System.Windows.Forms.CheckedListBox();
+            this.btnStartScan = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.progressBarCompare = new System.Windows.Forms.ProgressBar();
             this.lblAfterCompare = new System.Windows.Forms.Label();
             this.btnCompare = new System.Windows.Forms.Button();
             this.btnCompareAfter = new System.Windows.Forms.Button();
             this.lblBeforeCompare = new System.Windows.Forms.Label();
             this.lstSnapshots = new System.Windows.Forms.ListBox();
             this.txtCompareBefore = new System.Windows.Forms.Button();
-            this.btnSaveExcel = new System.Windows.Forms.Button();
-            this.txtCompareLogs = new System.Windows.Forms.RichTextBox();
-            this.progressBarCompare = new System.Windows.Forms.ProgressBar();
+            this.txtResult = new System.Windows.Forms.TextBox();
+            this.txtCompareLogs = new System.Windows.Forms.TextBox();
+            this.richTextBox1 = new System.Windows.Forms.TextBox();
+            this.btnIOpenTxtFile = new System.Windows.Forms.Button();
             this.tabPage3.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabControl.SuspendLayout();
@@ -56,9 +57,10 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.btnIOpenTxtFile);
+            this.tabPage3.Controls.Add(this.txtResult);
             this.tabPage3.Controls.Add(this.btnSaveExcel);
             this.tabPage3.Controls.Add(this.lstCompare);
-            this.tabPage3.Controls.Add(this.txtResult);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Size = new System.Drawing.Size(664, 576);
@@ -67,13 +69,15 @@
             this.tabPage3.UseVisualStyleBackColor = true;
             this.tabPage3.Enter += new System.EventHandler(this.tabPage3_Enter);
             // 
-            // txtResult
+            // btnSaveExcel
             // 
-            this.txtResult.Location = new System.Drawing.Point(3, 3);
-            this.txtResult.Name = "txtResult";
-            this.txtResult.Size = new System.Drawing.Size(477, 428);
-            this.txtResult.TabIndex = 0;
-            this.txtResult.Text = "";
+            this.btnSaveExcel.Location = new System.Drawing.Point(250, 455);
+            this.btnSaveExcel.Name = "btnSaveExcel";
+            this.btnSaveExcel.Size = new System.Drawing.Size(111, 38);
+            this.btnSaveExcel.TabIndex = 2;
+            this.btnSaveExcel.Text = "Save as Excel File";
+            this.btnSaveExcel.UseVisualStyleBackColor = true;
+            this.btnSaveExcel.Click += new System.EventHandler(this.btnSaveExcel_Click);
             // 
             // lstCompare
             // 
@@ -86,10 +90,10 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.richTextBox1);
             this.tabPage1.Controls.Add(this.progressBar1);
             this.tabPage1.Controls.Add(this.chkToggle);
             this.tabPage1.Controls.Add(this.chkListScans);
-            this.tabPage1.Controls.Add(this.richTextBox1);
             this.tabPage1.Controls.Add(this.btnStartScan);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
@@ -100,33 +104,12 @@
             this.tabPage1.UseVisualStyleBackColor = true;
             this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
             // 
-            // btnStartScan
+            // progressBar1
             // 
-            this.btnStartScan.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnStartScan.Location = new System.Drawing.Point(15, 307);
-            this.btnStartScan.Name = "btnStartScan";
-            this.btnStartScan.Size = new System.Drawing.Size(643, 64);
-            this.btnStartScan.TabIndex = 1;
-            this.btnStartScan.Text = "Start Scan";
-            this.btnStartScan.UseVisualStyleBackColor = true;
-            this.btnStartScan.Click += new System.EventHandler(this.btnStartScan_Click);
-            // 
-            // richTextBox1
-            // 
-            this.richTextBox1.Location = new System.Drawing.Point(12, 390);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(646, 142);
-            this.richTextBox1.TabIndex = 4;
-            this.richTextBox1.Text = "";
-            // 
-            // chkListScans
-            // 
-            this.chkListScans.CheckOnClick = true;
-            this.chkListScans.FormattingEnabled = true;
-            this.chkListScans.Location = new System.Drawing.Point(12, 26);
-            this.chkListScans.Name = "chkListScans";
-            this.chkListScans.Size = new System.Drawing.Size(646, 259);
-            this.chkListScans.TabIndex = 5;
+            this.progressBar1.Location = new System.Drawing.Point(12, 538);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(646, 23);
+            this.progressBar1.TabIndex = 7;
             // 
             // chkToggle
             // 
@@ -139,12 +122,25 @@
             this.chkToggle.UseVisualStyleBackColor = true;
             this.chkToggle.Click += new System.EventHandler(this.chkToggle_Click);
             // 
-            // progressBar1
+            // chkListScans
             // 
-            this.progressBar1.Location = new System.Drawing.Point(12, 538);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(646, 23);
-            this.progressBar1.TabIndex = 7;
+            this.chkListScans.CheckOnClick = true;
+            this.chkListScans.FormattingEnabled = true;
+            this.chkListScans.Location = new System.Drawing.Point(12, 26);
+            this.chkListScans.Name = "chkListScans";
+            this.chkListScans.Size = new System.Drawing.Size(646, 259);
+            this.chkListScans.TabIndex = 5;
+            // 
+            // btnStartScan
+            // 
+            this.btnStartScan.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnStartScan.Location = new System.Drawing.Point(15, 307);
+            this.btnStartScan.Name = "btnStartScan";
+            this.btnStartScan.Size = new System.Drawing.Size(643, 64);
+            this.btnStartScan.TabIndex = 1;
+            this.btnStartScan.Text = "Start Scan";
+            this.btnStartScan.UseVisualStyleBackColor = true;
+            this.btnStartScan.Click += new System.EventHandler(this.btnStartScan_Click);
             // 
             // tabControl
             // 
@@ -159,8 +155,8 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.progressBarCompare);
             this.tabPage2.Controls.Add(this.txtCompareLogs);
+            this.tabPage2.Controls.Add(this.progressBarCompare);
             this.tabPage2.Controls.Add(this.lblAfterCompare);
             this.tabPage2.Controls.Add(this.btnCompare);
             this.tabPage2.Controls.Add(this.btnCompareAfter);
@@ -175,6 +171,13 @@
             this.tabPage2.Text = "Compare";
             this.tabPage2.UseVisualStyleBackColor = true;
             this.tabPage2.Enter += new System.EventHandler(this.tabPage2_Enter);
+            // 
+            // progressBarCompare
+            // 
+            this.progressBarCompare.Location = new System.Drawing.Point(10, 520);
+            this.progressBarCompare.Name = "progressBarCompare";
+            this.progressBarCompare.Size = new System.Drawing.Size(638, 38);
+            this.progressBarCompare.TabIndex = 13;
             // 
             // lblAfterCompare
             // 
@@ -232,30 +235,44 @@
             this.txtCompareBefore.UseVisualStyleBackColor = true;
             this.txtCompareBefore.Click += new System.EventHandler(this.txtCompareBefore_Click);
             // 
-            // btnSaveExcel
+            // txtResult
             // 
-            this.btnSaveExcel.Location = new System.Drawing.Point(177, 456);
-            this.btnSaveExcel.Name = "btnSaveExcel";
-            this.btnSaveExcel.Size = new System.Drawing.Size(111, 38);
-            this.btnSaveExcel.TabIndex = 2;
-            this.btnSaveExcel.Text = "Save as Excel File";
-            this.btnSaveExcel.UseVisualStyleBackColor = true;
-            this.btnSaveExcel.Click += new System.EventHandler(this.btnSaveExcel_Click);
+            this.txtResult.Location = new System.Drawing.Point(4, 3);
+            this.txtResult.MaxLength = 2147483647;
+            this.txtResult.Multiline = true;
+            this.txtResult.Name = "txtResult";
+            this.txtResult.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtResult.Size = new System.Drawing.Size(476, 447);
+            this.txtResult.TabIndex = 3;
+            this.txtResult.WordWrap = false;
             // 
             // txtCompareLogs
             // 
-            this.txtCompareLogs.Location = new System.Drawing.Point(314, 3);
+            this.txtCompareLogs.Location = new System.Drawing.Point(335, 6);
+            this.txtCompareLogs.Multiline = true;
             this.txtCompareLogs.Name = "txtCompareLogs";
-            this.txtCompareLogs.Size = new System.Drawing.Size(334, 507);
-            this.txtCompareLogs.TabIndex = 12;
-            this.txtCompareLogs.Text = "";
+            this.txtCompareLogs.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtCompareLogs.Size = new System.Drawing.Size(313, 507);
+            this.txtCompareLogs.TabIndex = 14;
             // 
-            // progressBarCompare
+            // richTextBox1
             // 
-            this.progressBarCompare.Location = new System.Drawing.Point(10, 520);
-            this.progressBarCompare.Name = "progressBarCompare";
-            this.progressBarCompare.Size = new System.Drawing.Size(638, 38);
-            this.progressBarCompare.TabIndex = 13;
+            this.richTextBox1.Location = new System.Drawing.Point(15, 378);
+            this.richTextBox1.Multiline = true;
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.richTextBox1.Size = new System.Drawing.Size(643, 154);
+            this.richTextBox1.TabIndex = 8;
+            // 
+            // btnIOpenTxtFile
+            // 
+            this.btnIOpenTxtFile.Location = new System.Drawing.Point(84, 456);
+            this.btnIOpenTxtFile.Name = "btnIOpenTxtFile";
+            this.btnIOpenTxtFile.Size = new System.Drawing.Size(107, 37);
+            this.btnIOpenTxtFile.TabIndex = 4;
+            this.btnIOpenTxtFile.Text = "Open in txt file";
+            this.btnIOpenTxtFile.UseVisualStyleBackColor = true;
+            this.btnIOpenTxtFile.Click += new System.EventHandler(this.btnIOpenTxtFile_Click);
             // 
             // Form1
             // 
@@ -266,6 +283,7 @@
             this.Name = "Form1";
             this.Text = "WindowsDiffTool";
             this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabControl.ResumeLayout(false);
@@ -279,12 +297,10 @@
 
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.ListBox lstCompare;
-        private System.Windows.Forms.RichTextBox txtResult;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.CheckBox chkToggle;
         private System.Windows.Forms.CheckedListBox chkListScans;
-        private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Button btnStartScan;
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage tabPage2;
@@ -296,7 +312,10 @@
         private System.Windows.Forms.Button txtCompareBefore;
         private System.Windows.Forms.Button btnSaveExcel;
         private System.Windows.Forms.ProgressBar progressBarCompare;
-        private System.Windows.Forms.RichTextBox txtCompareLogs;
+        private System.Windows.Forms.TextBox txtResult;
+        private System.Windows.Forms.TextBox richTextBox1;
+        private System.Windows.Forms.TextBox txtCompareLogs;
+        private System.Windows.Forms.Button btnIOpenTxtFile;
     }
 }
 

@@ -23,6 +23,8 @@ namespace WindowsSystemDiffTool
         SnapshotFile beforeCompare;
         SnapshotFile afterCompare;
 
+        Thread threadProcess;
+
         public Form1()
         {
             InitializeComponent();
@@ -45,6 +47,7 @@ namespace WindowsSystemDiffTool
                 chkListScans.Items.Add(lib);
                 diffToolScanner.ComponentsTypes.Add(lib.Scanner.TypeOfComponent());
             }
+            
         }
         
 
@@ -60,18 +63,34 @@ namespace WindowsSystemDiffTool
                 librairies.Add((Library)chkListScans.CheckedItems[x]);
             }
 
-            diffToolScanner.StartScan(librairies);
+            btnStartScan.Enabled = false;
+            btnStartScan.Text = "Scan running, please wait...";
+
+            threadProcess = new Thread(() =>
+            {
+                diffToolScanner.StartScan(librairies);
+
+                btnStartScan.Invoke((MethodInvoker)(() =>
+                {
+                    btnStartScan.Enabled = true;
+                    btnStartScan.Text = "Start Scan";
+                }));
+            });
+            threadProcess.Start();       
         }
 
         public void sendStringToUI(string message)
         {
-            if (richTextBox1.Text.Length > 0)
-                richTextBox1.Text += Environment.NewLine;
+            richTextBox1.Invoke((MethodInvoker)(() =>
+           {
+               if (richTextBox1.Text.Length > 0)
+                   richTextBox1.Text += Environment.NewLine;
 
-            richTextBox1.Text += message;
+               richTextBox1.Text += message;
 
-            richTextBox1.SelectionStart = richTextBox1.Text.Length;
-            richTextBox1.ScrollToCaret();
+               richTextBox1.SelectionStart = richTextBox1.Text.Length;
+               richTextBox1.ScrollToCaret();
+           }));
         }
 
 
@@ -82,6 +101,8 @@ namespace WindowsSystemDiffTool
 
         private void LoadCompareTab()
         {
+            btnCompare.Enabled = false;
+
             lstSnapshots.Items.Clear();
             foreach(SnapshotFile file in SnapshotFilesLoader.GetFiles())
             {
@@ -91,24 +112,61 @@ namespace WindowsSystemDiffTool
 
         private void txtCompareBefore_Click(object sender, EventArgs e)
         {
+            if (lstSnapshots.SelectedItem == null)
+                return;
+
             lblBeforeCompare.Text = lstSnapshots.SelectedItem.ToString();
             beforeCompare = (SnapshotFile)lstSnapshots.SelectedItem;
+
+            if (beforeCompare != null && afterCompare != null)
+                btnCompare.Enabled = true;
         }
 
         private void btnCompareAfter_Click(object sender, EventArgs e)
         {
+            if (lstSnapshots.SelectedItem == null)
+                return;
+
             lblAfterCompare.Text = lstSnapshots.SelectedItem.ToString();
             afterCompare = (SnapshotFile)lstSnapshots.SelectedItem;
+
+            if (beforeCompare != null && afterCompare != null)
+                btnCompare.Enabled = true;
         }
 
         private void btnCompare_Click(object sender, EventArgs e)
         {
+            btnCompare.Enabled = false;
+            btnCompare.Text = "Compare running, please wait...";
+
             progressBarCompare.Value = 0;
             txtCompareLogs.Text = string.Empty;
 
-            diffToolScanner.CreateCompareFileFromSnapshots(this.beforeCompare, this.afterCompare);
-            tabControl.SelectTab(2);
+            threadProcess = new Thread(() =>
+            {
+                Thread.CurrentThread.IsBackground = true;
+
+                diffToolScanner.CreateCompareFileFromSnapshots(this.beforeCompare, this.afterCompare);
+
+                Thread.Sleep(1000);
+
+                btnCompare.Invoke((MethodInvoker) (() =>
+                {
+                    btnCompare.Enabled = true;
+                    btnCompare.Text = "Compare";
+                }));
+
+                tabControl.Invoke((MethodInvoker)(() =>
+                {
+                    tabControl.SelectTab(2);
+                }));
+            });
+            threadProcess.Start();
+
+
+
         }
+
 
         private void tabPage1_Click(object sender, EventArgs e)
         {
@@ -127,7 +185,11 @@ namespace WindowsSystemDiffTool
 
         public void UpdatePercentComplete(int percentComplete)
         {
-            progressBar1.Value = percentComplete;
+            progressBar1.Invoke((MethodInvoker)(() =>
+            {
+                progressBar1.Value = percentComplete;
+            }));
+
         }
 
         public void UpdateCompareFilesList()
@@ -155,7 +217,19 @@ namespace WindowsSystemDiffTool
         private void lstCompare_SelectedIndexChanged(object sender, EventArgs e)
         {
             diffToolScanner.LoadCompareFile((CompareFile)lstCompare.SelectedItem);
-            txtResult.Text = diffToolScanner.GetTextFromSelectedCompareFile();
+
+            txtResult.Text = "Currently loading diff results, please wait...";
+            
+
+            threadProcess = new Thread(() =>
+            {
+                Thread.CurrentThread.IsBackground = true;
+                txtResult.Invoke((MethodInvoker)(() =>
+               {
+                   txtResult.Text = diffToolScanner.GetTextFromSelectedCompareFile();
+               }));
+            });
+            threadProcess.Start();
         }
 
         private void btnSaveExcel_Click(object sender, EventArgs e)
@@ -177,21 +251,37 @@ namespace WindowsSystemDiffTool
 
         public void UpdateCompareMessage(string message)
         {
-            if (txtCompareLogs.Text.Length > 0)
-                txtCompareLogs.Text += Environment.NewLine;
+            txtCompareLogs.Invoke((MethodInvoker)(() =>
+            {
+                if (txtCompareLogs.Text.Length > 0)
+                    txtCompareLogs.Text += Environment.NewLine;
 
-            txtCompareLogs.Text += message;
+                txtCompareLogs.Text += message;
 
-            txtCompareLogs.SelectionStart = txtCompareLogs.Text.Length;
-            txtCompareLogs.ScrollToCaret();
+                txtCompareLogs.SelectionStart = txtCompareLogs.Text.Length;
+                txtCompareLogs.ScrollToCaret();
+            }));
 
-            Application.DoEvents();
+            
         }
 
         public void UpdateComparePercentComplete(int percentComplete)
         {
-            progressBarCompare.Value = percentComplete;
-            progressBarCompare.Refresh();
+            progressBarCompare.Invoke((MethodInvoker)(() =>
+            {
+                progressBarCompare.Value = percentComplete;
+                progressBarCompare.Refresh();
+            }));
+
+
+
+        }
+
+        private void btnIOpenTxtFile_Click(object sender, EventArgs e)
+        {
+            diffToolScanner.SaveTextToTempTxtFile();
+
+            System.Diagnostics.Process.Start(@"C:\Temp\WindowsDiffTool\temp.txt");
         }
     }
 }
