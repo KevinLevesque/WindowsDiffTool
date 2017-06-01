@@ -3,16 +3,16 @@ using System.Text;
 
 namespace WindowsSystemDiffToolsCore
 {
-    public static class DiffResultGroupsTextWriter
+    public static class SnapshotGroupsTextWriter
     {
 
-        public static string GetText(List<DiffResultsGroup> groups)
+        public static string GetText(List<ComponentGroup> groups)
         {
             StringBuilder sb = new StringBuilder();
 
-            foreach(DiffResultsGroup group in groups)
+            foreach(ComponentGroup group in groups)
             {
-                sb.Append((new DiffResultTextWriter(group)).GetText());
+                sb.Append((new SnapshotTextWriter(group)).GetText());
             }
 
             return sb.ToString();

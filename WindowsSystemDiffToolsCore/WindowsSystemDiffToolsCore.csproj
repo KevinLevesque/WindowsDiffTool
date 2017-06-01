@@ -74,6 +74,8 @@
   <ItemGroup>
     <Compile Include="CompareFile.cs" />
     <Compile Include="DiffResultGroupsExcelWriter.cs" />
+    <Compile Include="SnapshotGroupsTextWriter.cs" />
+    <Compile Include="SnapshotTextWriter.cs" />
     <Compile Include="SnapshotFile.cs" />
     <Compile Include="CompareFilesLoader.cs" />
     <Compile Include="SnapshotFilesLoader.cs" />

@@ -29,8 +29,7 @@ namespace WindowsSystemDiffTool
 
             richTextBox1.ReadOnly = true;
             progressBar1.Maximum = 100;
-
-            txtCompareLogs.ReadOnly = true;
+            
             progressBarCompare.Maximum = 100;
 
             txtResult.ReadOnly = true;
@@ -95,37 +94,27 @@ namespace WindowsSystemDiffTool
         private void LoadCompareTab()
         {
             btnCompare.Enabled = false;
+            progressBarCompare.Value = 0;
 
-            lstSnapshots.Items.Clear();
-            foreach(SnapshotFile file in SnapshotFilesLoader.GetFiles())
+            cboBeforeFile.Items.Clear();
+            cboAfterFile.Items.Clear();
+
+            cboBeforeFile.Items.Add("<Before snapshot>");
+            cboAfterFile.Items.Add("<After snapshot>");
+            beforeCompare = null;
+            afterCompare = null;
+
+            cboBeforeFile.SelectedIndex = 0;
+            cboAfterFile.SelectedIndex = 0;
+
+            foreach (SnapshotFile file in SnapshotFilesLoader.GetFiles().OrderByDescending(x => x.Info.Name))
             {
-                lstSnapshots.Items.Add(file);
+                cboBeforeFile.Items.Add(file);
+                cboAfterFile.Items.Add(file);
             }
         }
 
-        private void txtCompareBefore_Click(object sender, EventArgs e)
-        {
-            if (lstSnapshots.SelectedItem == null)
-                return;
-
-            lblBeforeCompare.Text = lstSnapshots.SelectedItem.ToString();
-            beforeCompare = (SnapshotFile)lstSnapshots.SelectedItem;
-
-            if (beforeCompare != null && afterCompare != null)
-                btnCompare.Enabled = true;
-        }
-
-        private void btnCompareAfter_Click(object sender, EventArgs e)
-        {
-            if (lstSnapshots.SelectedItem == null)
-                return;
-
-            lblAfterCompare.Text = lstSnapshots.SelectedItem.ToString();
-            afterCompare = (SnapshotFile)lstSnapshots.SelectedItem;
-
-            if (beforeCompare != null && afterCompare != null)
-                btnCompare.Enabled = true;
-        }
+  
 
         private void btnCompare_Click(object sender, EventArgs e)
         {
@@ -133,7 +122,6 @@ namespace WindowsSystemDiffTool
             btnCompare.Text = "Compare running, please wait...";
 
             progressBarCompare.Value = 0;
-            txtCompareLogs.Text = string.Empty;
 
             threadProcess = new Thread(() =>
             {
@@ -209,22 +197,23 @@ namespace WindowsSystemDiffTool
 
         private void lstCompare_SelectedIndexChanged(object sender, EventArgs e)
         {
-            diffToolScanner.LoadCompareFile((CompareFile)lstCompare.SelectedItem);
-
             txtResult.Text = "Currently loading diff results, please wait...";
-            
+
+            CompareFile compareFile = (CompareFile)lstCompare.SelectedItem;
+
+
 
             threadProcess = new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
+
+                diffToolScanner.LoadCompareFile(compareFile);
+
+                string res = diffToolScanner.GetTextFromSelectedCompareFile();
+
                 txtResult.Invoke((MethodInvoker)(() =>
                 {
-                    string res = diffToolScanner.GetTextFromSelectedCompareFile();
-
-                    if (res.Length <= Int32.MaxValue)
-                        txtResult.Text = res;
-                    else
-                        txtResult.Text = "Differential result too big, please open in txt file.";
+                    txtResult.Text = res;                    
                 }));
             });
             threadProcess.Start();
@@ -249,18 +238,7 @@ namespace WindowsSystemDiffTool
 
         public void UpdateCompareMessage(string message)
         {
-            txtCompareLogs.Invoke((MethodInvoker)(() =>
-            {
-                if (txtCompareLogs.Text.Length > 0)
-                    txtCompareLogs.Text += Environment.NewLine;
-
-                txtCompareLogs.Text += message;
-
-                txtCompareLogs.SelectionStart = txtCompareLogs.Text.Length;
-                txtCompareLogs.ScrollToCaret();
-            }));
-
-            
+                  
         }
 
         public void UpdateComparePercentComplete(int percentComplete)
@@ -280,6 +258,66 @@ namespace WindowsSystemDiffTool
             diffToolScanner.SaveTextToTempTxtFile();
 
             System.Diagnostics.Process.Start(@"C:\Temp\WindowsDiffTool\temp.txt");
+        }
+
+
+
+        private void cboBeforeFile_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            txtBeforeCompare.Text = string.Empty;
+
+            if (cboBeforeFile.SelectedIndex == 0)
+            {
+                beforeCompare = null;
+                btnCompare.Enabled = false;
+                return;
+            }               
+
+            beforeCompare = (SnapshotFile)cboBeforeFile.SelectedItem;
+
+            txtBeforeCompare.Text = "Currently loading snapshot, please wait...";
+
+            (new Thread(() =>
+            {
+                txtBeforeCompare.Invoke((MethodInvoker)(() =>
+                {                  
+                    txtBeforeCompare.Text = diffToolScanner.GetTextFromSnapshotFile(beforeCompare);
+
+                    if (beforeCompare != null && afterCompare != null)
+                        btnCompare.Enabled = true;
+                }));
+            })).Start();
+
+
+
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            txtAfterCompare.Text = string.Empty;
+
+            if (cboAfterFile.SelectedIndex == 0)
+            {
+                afterCompare = null;
+                btnCompare.Enabled = false;
+                return;
+            }
+
+            afterCompare = (SnapshotFile)cboAfterFile.SelectedItem;
+            txtAfterCompare.Text = "Currently loading snapshot, please wait...";
+            
+            (new Thread(() =>
+            {
+                txtAfterCompare.Invoke((MethodInvoker)(() =>
+                {
+                    txtAfterCompare.Text = diffToolScanner.GetTextFromSnapshotFile(afterCompare);
+
+                    if (beforeCompare != null && afterCompare != null)
+                        btnCompare.Enabled = true;
+                }));
+            })).Start();
+
+
         }
     }
 }

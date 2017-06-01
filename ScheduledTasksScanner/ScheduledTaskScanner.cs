@@ -12,10 +12,12 @@ namespace ScheduledTasksScanner
         public override string ComponentName { get { return "ScheduledTask"; } }
         public override string ComponentNamespace { get { return "ScheduledTasksScanner"; } }
 
-        List<Component> items = new List<Component>();
+        List<Component> items;
 
         public override List<Component> Scan()
         {
+            items = new List<Component>();
+
             string path = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
 
             try

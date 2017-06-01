@@ -82,6 +82,9 @@
   <PropertyGroup>
     <TargetZone>LocalIntranet</TargetZone>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icon_SiB_icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -178,6 +181,10 @@
       <Project>{d8bd7d79-05a3-49d2-98a2-e2386620aba9}</Project>
       <Name>ServicesScanner</Name>
     </ProjectReference>
+    <ProjectReference Include="..\StartMenuScanner\StartMenuScanner.csproj">
+      <Project>{fdde3199-2892-4d65-b764-6601a825b475}</Project>
+      <Name>StartMenuScanner</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SystemEnvironmentVariablesScanner\SystemEnvironmentVariablesScanner.csproj">
       <Project>{4dc5b41d-4d6f-4ecd-b19d-2b1073a6e0fa}</Project>
       <Name>SystemEnvironmentVariablesScanner</Name>
@@ -198,6 +205,9 @@
       <Project>{b904d8d9-dbde-477c-a395-53a124d5ecce}</Project>
       <Name>WordAddinsScanner</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="icon_SiB_icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

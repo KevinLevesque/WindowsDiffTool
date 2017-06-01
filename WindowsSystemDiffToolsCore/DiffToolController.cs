@@ -50,7 +50,7 @@ namespace WindowsSystemDiffToolsCore
 
                 count++;
 
-                Listener.UpdatePercentComplete((count / LibrariesToScan.Count) * 100);
+                Listener.UpdatePercentComplete((int)Math.Ceiling(((float)count / (float)LibrariesToScan.Count) * (float)100));
             }
 
             WriteToFile();
@@ -125,6 +125,11 @@ namespace WindowsSystemDiffToolsCore
         public string GetTextFromSelectedCompareFile()
         {
             return DiffResultGroupsTextWriter.GetText(this.CurrentCompareFileSelectedResult);
+        }
+
+        public string GetTextFromSnapshotFile(SnapshotFile file)
+        {
+            return SnapshotGroupsTextWriter.GetText(ReadFromFile(file.Info.FullName));
         }
 
         public void SaveTextToTempTxtFile()

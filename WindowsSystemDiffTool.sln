@@ -25,13 +25,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScheduledTasksScanner", "Sc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiskRootScanner", "DiskRootScanner\DiskRootScanner.csproj", "{F2F3F137-BDF3-480E-B8BC-778695130404}"
 EndProject
-Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Installer", "Installer\Installer.wixproj", "{0263C1D9-DE70-4938-8452-4E3EEBF63AD2}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OutlookAddinsScanner", "OutlookAddinsScanner\OutlookAddinsScanner.csproj", "{F98E9E06-A404-4CC3-BB2E-307DAE701663}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordAddinsScanner", "WordAddinsScanner\WordAddinsScanner.csproj", "{B904D8D9-DBDE-477C-A395-53A124D5ECCE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelAddinsScanner", "ExcelAddinsScanner\ExcelAddinsScanner.csproj", "{EFC6D021-6407-47CE-AAFF-F7767DDAF423}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StartMenuScanner", "StartMenuScanner\StartMenuScanner.csproj", "{FDDE3199-2892-4D65-B764-6601A825B475}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -244,20 +244,6 @@ Global
 		{F2F3F137-BDF3-480E-B8BC-778695130404}.Release|x64.Build.0 = Release|Any CPU
 		{F2F3F137-BDF3-480E-B8BC-778695130404}.Release|x86.ActiveCfg = Release|Any CPU
 		{F2F3F137-BDF3-480E-B8BC-778695130404}.Release|x86.Build.0 = Release|Any CPU
-		{0263C1D9-DE70-4938-8452-4E3EEBF63AD2}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{0263C1D9-DE70-4938-8452-4E3EEBF63AD2}.Debug|x64.ActiveCfg = Debug|x86
-		{0263C1D9-DE70-4938-8452-4E3EEBF63AD2}.Debug|x86.ActiveCfg = Debug|x86
-		{0263C1D9-DE70-4938-8452-4E3EEBF63AD2}.Debug|x86.Build.0 = Debug|x86
-		{0263C1D9-DE70-4938-8452-4E3EEBF63AD2}.Release 2|Any CPU.ActiveCfg = Release|x86
-		{0263C1D9-DE70-4938-8452-4E3EEBF63AD2}.Release 2|Any CPU.Build.0 = Release|x86
-		{0263C1D9-DE70-4938-8452-4E3EEBF63AD2}.Release 2|x64.ActiveCfg = Release|x86
-		{0263C1D9-DE70-4938-8452-4E3EEBF63AD2}.Release 2|x64.Build.0 = Release|x86
-		{0263C1D9-DE70-4938-8452-4E3EEBF63AD2}.Release 2|x86.ActiveCfg = Release|x86
-		{0263C1D9-DE70-4938-8452-4E3EEBF63AD2}.Release 2|x86.Build.0 = Release|x86
-		{0263C1D9-DE70-4938-8452-4E3EEBF63AD2}.Release|Any CPU.ActiveCfg = Release|x86
-		{0263C1D9-DE70-4938-8452-4E3EEBF63AD2}.Release|x64.ActiveCfg = Release|x86
-		{0263C1D9-DE70-4938-8452-4E3EEBF63AD2}.Release|x86.ActiveCfg = Release|x86
-		{0263C1D9-DE70-4938-8452-4E3EEBF63AD2}.Release|x86.Build.0 = Release|x86
 		{F98E9E06-A404-4CC3-BB2E-307DAE701663}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F98E9E06-A404-4CC3-BB2E-307DAE701663}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F98E9E06-A404-4CC3-BB2E-307DAE701663}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -312,6 +298,24 @@ Global
 		{EFC6D021-6407-47CE-AAFF-F7767DDAF423}.Release|x64.Build.0 = Release|Any CPU
 		{EFC6D021-6407-47CE-AAFF-F7767DDAF423}.Release|x86.ActiveCfg = Release|Any CPU
 		{EFC6D021-6407-47CE-AAFF-F7767DDAF423}.Release|x86.Build.0 = Release|Any CPU
+		{FDDE3199-2892-4D65-B764-6601A825B475}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDDE3199-2892-4D65-B764-6601A825B475}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDDE3199-2892-4D65-B764-6601A825B475}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FDDE3199-2892-4D65-B764-6601A825B475}.Debug|x64.Build.0 = Debug|Any CPU
+		{FDDE3199-2892-4D65-B764-6601A825B475}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FDDE3199-2892-4D65-B764-6601A825B475}.Debug|x86.Build.0 = Debug|Any CPU
+		{FDDE3199-2892-4D65-B764-6601A825B475}.Release 2|Any CPU.ActiveCfg = Release|Any CPU
+		{FDDE3199-2892-4D65-B764-6601A825B475}.Release 2|Any CPU.Build.0 = Release|Any CPU
+		{FDDE3199-2892-4D65-B764-6601A825B475}.Release 2|x64.ActiveCfg = Release|Any CPU
+		{FDDE3199-2892-4D65-B764-6601A825B475}.Release 2|x64.Build.0 = Release|Any CPU
+		{FDDE3199-2892-4D65-B764-6601A825B475}.Release 2|x86.ActiveCfg = Release|Any CPU
+		{FDDE3199-2892-4D65-B764-6601A825B475}.Release 2|x86.Build.0 = Release|Any CPU
+		{FDDE3199-2892-4D65-B764-6601A825B475}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDDE3199-2892-4D65-B764-6601A825B475}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDDE3199-2892-4D65-B764-6601A825B475}.Release|x64.ActiveCfg = Release|Any CPU
+		{FDDE3199-2892-4D65-B764-6601A825B475}.Release|x64.Build.0 = Release|Any CPU
+		{FDDE3199-2892-4D65-B764-6601A825B475}.Release|x86.ActiveCfg = Release|Any CPU
+		{FDDE3199-2892-4D65-B764-6601A825B475}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

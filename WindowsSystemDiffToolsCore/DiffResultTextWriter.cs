@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace WindowsSystemDiffToolsCore
 {
@@ -18,15 +19,17 @@ namespace WindowsSystemDiffToolsCore
 
         public string GetText()
         {
-            string text = $"[{Group.Name}]" + Environment.NewLine;
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append($"[{Group.Name}]" + Environment.NewLine);
 
             if(Group.DiffResults == null)
             {
-                text += "-- Component not scanned in one of both scans --" + Environment.NewLine;
+                sb.Append("-- Component not scanned in one of both scans --" + Environment.NewLine);
             }
             else if (Group.DiffResults.Count == 0)
             {
-                text += "-- No change --" + Environment.NewLine;
+                sb.Append("-- No change --" + Environment.NewLine);
             }
             else
             {
@@ -34,22 +37,22 @@ namespace WindowsSystemDiffToolsCore
                 {
                     if (result.Type == DiffResultType.Added)
                     {
-                        text += $"{result.AfterComponent} ---- Added" + Environment.NewLine;
+                        sb.Append($"{result.AfterComponent} ---- Added" + Environment.NewLine);
                     }
                     else if (result.Type == DiffResultType.Modified)
                     {
-                        text += $"{result.BeforeComponent} ---> {changedItemString(result)} ---- Modified" + Environment.NewLine;
+                        sb.Append($"{result.BeforeComponent} ---> {changedItemString(result)} ---- Modified" + Environment.NewLine);
                     }
                     else if (result.Type == DiffResultType.Removed)
                     {
-                        text += $"{result.BeforeComponent} ---- Deleted" + Environment.NewLine;
+                        sb.Append($"{result.BeforeComponent} ---- Deleted" + Environment.NewLine);
                     }
                 }
             }
-            
 
-            text += Environment.NewLine + Environment.NewLine;
-            return text;
+
+            sb.Append(Environment.NewLine + Environment.NewLine);
+            return sb.ToString();
         }
 
         private string changedItemString(DiffResult res)
