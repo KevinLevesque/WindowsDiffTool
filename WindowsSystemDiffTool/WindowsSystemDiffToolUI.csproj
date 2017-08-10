@@ -149,6 +149,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DefaultFoldersScanner\DefaultFoldersScanner.csproj">
+      <Project>{ba2c6c84-493e-4025-be33-c5b6c7bba746}</Project>
+      <Name>DefaultFoldersScanner</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DiskRootScanner\DiskRootScanner.csproj">
       <Project>{f2f3f137-bdf3-480e-b8bc-778695130404}</Project>
       <Name>DiskRootScanner</Name>

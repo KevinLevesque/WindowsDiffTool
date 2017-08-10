@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System.Collections.Generic;
+using System.Linq;
 using WindowsSystemDiffToolsCore;
 
 namespace InstalledPrograms64bitsScanner
@@ -10,6 +11,7 @@ namespace InstalledPrograms64bitsScanner
         public string DisplayVersion { get; set; }
         public int Bitness { get; set; }
         public string UninstallKey { get; set; }
+        public string UninstallKeyId { get; set; }
 
 
 
@@ -19,8 +21,9 @@ namespace InstalledPrograms64bitsScanner
             this.DisplayName = key.GetValue("DisplayName").ToString();
             this.UninstallKey = key.Name;
             this.Bitness = bitness;
+            this.UninstallKeyId = this.UninstallKey.Split('\\').Last();
 
-            if(key.GetValue("DisplayVersion") != null)
+            if (key.GetValue("DisplayVersion") != null)
                 this.DisplayVersion = key.GetValue("DisplayVersion").ToString();
         }
 
@@ -32,7 +35,7 @@ namespace InstalledPrograms64bitsScanner
 
         public override string getDisplayName()
         {
-            return this.DisplayName;
+            return this.UninstallKeyId;
         }
 
         public override Dictionary<string, string> getItems()
